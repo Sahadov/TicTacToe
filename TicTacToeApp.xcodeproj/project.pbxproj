@@ -19,6 +19,8 @@
 		D1F25DAB2CA9D25B00DD3FF8 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAA2CA9D25B00DD3FF8 /* RulesViewController.swift */; };
 		D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */; };
 		FC2221252CABFEC000FB0F48 /* RuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221242CABFEC000FB0F48 /* RuleView.swift */; };
+		FC2221272CAC527C00FB0F48 /* RuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221262CAC527C00FB0F48 /* RuleModel.swift */; };
+		FC2221292CAC552B00FB0F48 /* RuleViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221282CAC552B00FB0F48 /* RuleViewFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		D1F25DAA2CA9D25B00DD3FF8 /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		FC2221242CABFEC000FB0F48 /* RuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleView.swift; sourceTree = "<group>"; };
+		FC2221262CAC527C00FB0F48 /* RuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleModel.swift; sourceTree = "<group>"; };
+		FC2221282CAC552B00FB0F48 /* RuleViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleViewFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 			children = (
 				D1F25DAA2CA9D25B00DD3FF8 /* RulesViewController.swift */,
 				FC2221242CABFEC000FB0F48 /* RuleView.swift */,
+				FC2221262CAC527C00FB0F48 /* RuleModel.swift */,
+				FC2221282CAC552B00FB0F48 /* RuleViewFactory.swift */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -182,9 +188,11 @@
 				D1F25DAB2CA9D25B00DD3FF8 /* RulesViewController.swift in Sources */,
 				D14462D22CA9E7DD00896542 /* UIButton_Extension.swift in Sources */,
 				D18696482CA9ADA200647D14 /* OnboardingViewController.swift in Sources */,
+				FC2221292CAC552B00FB0F48 /* RuleViewFactory.swift in Sources */,
 				D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */,
 				FC2221252CABFEC000FB0F48 /* RuleView.swift in Sources */,
 				D1F25DA32CA9D18E00DD3FF8 /* SelectGameViewController.swift in Sources */,
+				FC2221272CAC527C00FB0F48 /* RuleModel.swift in Sources */,
 				D1F25DA72CA9D22900DD3FF8 /* SettingsViewController.swift in Sources */,
 				D1F25DA92CA9D24700DD3FF8 /* GameViewController.swift in Sources */,
 				D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */,

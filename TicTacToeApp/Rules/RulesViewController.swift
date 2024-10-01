@@ -1,6 +1,6 @@
 import UIKit
 
-class RulesViewController: UIViewController {
+final class RulesViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -30,44 +30,20 @@ class RulesViewController: UIViewController {
         return label
     }()
     
-    private let rulesData = [
-        ("1", "Draw a grid with three rows and \nthree columns, creating nine \nsquares in total."),
-        ("2", "Players take turns placing their \nmarker (X or O) in an empty \nsquare. \nTo make a move, a player \nselects a number \ncorresponding to the square \nwhere they want to place their \nmarker."),
-        ("3", "Player X starts by choosing a \nsquare (e.g., square 5). \nPlayer O follows by choosing \nan empty square (e.g., square \n1). \nContinue alternating turns until \nthe game ends."),
-        ("4", "The first player to align three \nof their markers horizontally, \nvertically, or diagonally wins. \nExamples of Winning \nCombinations: \nHorizontal: Squares 1, 2, 3 \nor 4, 5, 6 or 7, 8, 9 \nVertical: Squares 1, 4, 7 or 2, 5, \n8 or 3, 6, 9 \nDiagonal: Squares 1, 5, 9 or \n3, 5, 7")
-    ]
-    
-    private var ruleViews: [RuleView] = []
+    private let ruleViewFactory = RuleViewFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BlueBg")
         
-        createRuleViews()
-        
         addSubViews()
         applyConstraints()
-    }
-    
-    private func createRuleViews() {
-        for (number, text) in rulesData {
-            let ruleView = RuleView()
-            ruleView.translatesAutoresizingMaskIntoConstraints = false
-            ruleView.setValues(number, text)
-            ruleViews.append(ruleView)
-        }
+        setupRules()
     }
     
     private func addSubViews() {
-        [backButton,
-         titleLabel,
-         scrollView].forEach{view.addSubview($0)}
-        
+        [backButton, titleLabel, scrollView].forEach { view.addSubview($0) }
         scrollView.addSubview(contentView)
-        
-        for ruleView in ruleViews {
-            contentView.addSubview(ruleView)
-        }
     }
     
     private func applyConstraints() {
@@ -91,23 +67,17 @@ class RulesViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
+    }
+    
+    private func setupRules() {
+        let ruleViews = ruleViewFactory.createRuleViews(from: RuleModel.rules)
         
         for (index, ruleView) in ruleViews.enumerated() {
+            contentView.addSubview(ruleView)
             NSLayoutConstraint.activate([
                 ruleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
                 ruleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
-                ruleView.heightAnchor.constraint(equalToConstant: {
-                    switch index {
-                    case 1:
-                        return 190
-                    case 2:
-                        return 170
-                    case 3:
-                        return 255
-                    default:
-                        return 90
-                    }
-                }())
+                ruleView.heightAnchor.constraint(equalToConstant: ruleViewFactory.height(for: index))
             ])
             
             if index == 0 {
@@ -123,6 +93,6 @@ class RulesViewController: UIViewController {
     }
     
     @objc private func didTapBackButton() {
-        //TO-DO: Back to main page
+        // TO-DO: Back to main page
     }
 }
