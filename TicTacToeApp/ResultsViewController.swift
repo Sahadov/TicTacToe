@@ -2,6 +2,12 @@ import UIKit
 
 class ResultsViewController: UIViewController {
 
+    enum Results {
+        case win
+        case lose
+        case draw
+    }
+    
     private lazy var resultLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,10 +36,10 @@ class ResultsViewController: UIViewController {
     }
 
     private func addSubViews() {
-        view.addSubview(resultLabel)
-        view.addSubview(imageView)
-        view.addSubview(againButton)
-        view.addSubview(backButton)
+        [resultLabel, 
+         imageView,
+         againButton,
+         backButton].forEach{view.addSubview($0)}
     }
     
     private func applyConstraints() {
@@ -46,27 +52,27 @@ class ResultsViewController: UIViewController {
             imageView.widthAnchor.constraint(equalToConstant: 228),
             imageView.heightAnchor.constraint(equalToConstant: 228),
             
-            againButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 160),
+            againButton.heightAnchor.constraint(equalTo: backButton.heightAnchor),
             againButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 21),
             againButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -21),
-            againButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -102),
+            againButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -12),
             
-            backButton.topAnchor.constraint(equalTo: againButton.bottomAnchor, constant: 12),
+            backButton.heightAnchor.constraint(equalToConstant: 72),
             backButton.leadingAnchor.constraint(equalTo: againButton.leadingAnchor),
             backButton.trailingAnchor.constraint(equalTo: againButton.trailingAnchor),
             backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -18),
         ])
     }
     
-    private func didGetResult(_ result: String) {
+    private func didGetResult(_ result: Results) {
         switch result {
-        case "Win":
+        case .win:
             resultLabel.text = "Player One Win!"
             imageView.image = UIImage(named: "Win")
-        case "Lose":
+        case .lose:
             resultLabel.text = "You Lose!"
             imageView.image = UIImage(named: "Lose")
-        default:
+        case .draw:
             resultLabel.text = "Draw!"
             imageView.image = UIImage(named: "Draw")
         }
