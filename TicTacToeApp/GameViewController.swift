@@ -119,7 +119,7 @@ class GameViewController: UIViewController {
     
     private lazy var fieldCollection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutView)
-        collectionView.backgroundColor = .red
+        collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -186,13 +186,12 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
     
-//    черновик исправить расчет размеров
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewFrame: CGRect = collectionView.frame
         var measuredWidth = collectionViewFrame.width
-        
-        measuredWidth = (measuredWidth - 20) / 3
-        return CGSize(width: measuredWidth, height: measuredWidth)
+        measuredWidth = (measuredWidth/3) - (20.0/3)
+        let measuredHeight = collectionView.frame.width/3
+        return CGSize(width: measuredWidth, height: measuredHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -203,6 +202,9 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
         10.0
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+    }
 }
 
 // MARK: - Extensions Constraints
