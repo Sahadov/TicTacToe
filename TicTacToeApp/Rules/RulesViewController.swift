@@ -59,9 +59,9 @@ class RulesViewController: UIViewController {
     }
     
     private func addSubViews() {
-        view.addSubview(backButton)
-        view.addSubview(titleLabel)
-        view.addSubview(scrollView)
+        [backButton,
+         titleLabel,
+         scrollView].forEach{view.addSubview($0)}
         
         scrollView.addSubview(contentView)
         
