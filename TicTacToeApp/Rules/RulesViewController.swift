@@ -30,65 +30,32 @@ class RulesViewController: UIViewController {
         return label
     }()
     
-    private lazy var textView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "BlueLight")
-        view.layer.cornerRadius = 30
-        return view
-    }()
+    private let rulesData = [
+        ("1", "Draw a grid with three rows and \nthree columns, creating nine \nsquares in total."),
+        ("2", "Players take turns placing their \nmarker (X or O) in an empty \nsquare. \nTo make a move, a player \nselects a number \ncorresponding to the square \nwhere they want to place their \nmarker."),
+        ("3", "Player X starts by choosing a \nsquare (e.g., square 5). \nPlayer O follows by choosing \nan empty square (e.g., square \n1). \nContinue alternating turns until \nthe game ends."),
+        ("4", "The first player to align three \nof their markers horizontally, \nvertically, or diagonally wins. \nExamples of Winning \nCombinations: \nHorizontal: Squares 1, 2, 3 \nor 4, 5, 6 or 7, 8, 9 \nVertical: Squares 1, 4, 7 or 2, 5, \n8 or 3, 6, 9 \nDiagonal: Squares 1, 5, 9 or \n3, 5, 7")
+    ]
     
-    private lazy var textLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Draw a grid with three rows and \nthree columns, creating nine \nsquares in total."
-        label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private lazy var ruleView: RuleView = {
-        let view = RuleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let num = "1"
-        let text = "Draw a grid with three rows and \nthree columns, creating nine \nsquares in total."
-        view.setValues(num, text)
-        return view
-    }()
-    
-    private lazy var ruleView2: RuleView = {
-        let view = RuleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let num = "2"
-        let text = "Players take turns placing their \nmarker (X or O) in an empty \nsquare. \nTo make a move, a player \nselects a number \ncorresponding to the square \nwhere they want to place their \nmarker."
-        view.setValues(num, text)
-        return view
-    }()
-    
-    private lazy var ruleView3: RuleView = {
-        let view = RuleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let num = "3"
-        let text = "Player X starts by choosing a \nsquare (e.g., square 5). \nPlayer O follows by choosing \nan empty square (e.g., square \n1). \nContinue alternating turns until \nthe game ends."
-        view.setValues(num, text)
-        return view
-    }()
-    
-    private lazy var ruleView4: RuleView = {
-        let view = RuleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let num = "4"
-        let text = "The first player to align three \nof their markers horizontally, \nvertically, or diagonally wins. \nExamples of Winning \nCombinations: Horizontal: \nSquares 1, 2, 3 or 4, 5, 6 or \n 7, 8, 9 \nVertical: Squares 1, 4, 7 or 2, 5, \n8 or 3, 6, 9 \nDiagonal: Squares 1, 5, 9 or \n3, 5, 7"
-        view.setValues(num, text)
-        return view
-    }()
+    private var ruleViews: [RuleView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BlueBg")
         
+        createRuleViews()
+        
         addSubViews()
         applyConstraints()
+    }
+    
+    private func createRuleViews() {
+        for (number, text) in rulesData {
+            let ruleView = RuleView()
+            ruleView.translatesAutoresizingMaskIntoConstraints = false
+            ruleView.setValues(number, text)
+            ruleViews.append(ruleView)
+        }
     }
     
     private func addSubViews() {
@@ -98,10 +65,9 @@ class RulesViewController: UIViewController {
         
         scrollView.addSubview(contentView)
         
-        contentView.addSubview(ruleView)
-        contentView.addSubview(ruleView2)
-        contentView.addSubview(ruleView3)
-        contentView.addSubview(ruleView4)
+        for ruleView in ruleViews {
+            contentView.addSubview(ruleView)
+        }
     }
     
     private func applyConstraints() {
@@ -123,30 +89,37 @@ class RulesViewController: UIViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            ruleView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            ruleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
-            ruleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
-            ruleView.heightAnchor.constraint(equalToConstant: 90),
-            
-            ruleView2.topAnchor.constraint(equalTo: ruleView.bottomAnchor, constant: 10),
-            ruleView2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
-            ruleView2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
-            ruleView2.heightAnchor.constraint(equalToConstant: 190),
-            
-            ruleView3.topAnchor.constraint(equalTo: ruleView2.bottomAnchor, constant: 10),
-            ruleView3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
-            ruleView3.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
-            ruleView3.heightAnchor.constraint(equalToConstant: 170),
-            
-            ruleView4.topAnchor.constraint(equalTo: ruleView3.bottomAnchor, constant: 10),
-            ruleView4.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
-            ruleView4.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
-            ruleView4.heightAnchor.constraint(equalToConstant: 255),
-            
-            ruleView4.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
+        
+        for (index, ruleView) in ruleViews.enumerated() {
+            NSLayoutConstraint.activate([
+                ruleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 21),
+                ruleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -21),
+                ruleView.heightAnchor.constraint(equalToConstant: {
+                    switch index {
+                    case 1:
+                        return 190
+                    case 2:
+                        return 170
+                    case 3:
+                        return 255
+                    default:
+                        return 90
+                    }
+                }())
+            ])
+            
+            if index == 0 {
+                ruleView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+            } else {
+                ruleView.topAnchor.constraint(equalTo: ruleViews[index - 1].bottomAnchor, constant: 10).isActive = true
+            }
+        }
+        
+        if let lastRuleView = ruleViews.last {
+            lastRuleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        }
     }
     
     @objc private func didTapBackButton() {

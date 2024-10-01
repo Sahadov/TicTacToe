@@ -13,7 +13,6 @@ final class RuleView: UIView {
     private lazy var numLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1"
         label.font = .systemFont(ofSize: 20, weight: .regular)
         return label
     }()
@@ -29,7 +28,6 @@ final class RuleView: UIView {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Draw a grid with three rows and \nthree columns, creating nine \nsquares in total."
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.numberOfLines = 0
         return label
