@@ -20,6 +20,7 @@
 		D1F25DA32CA9D18E00DD3FF8 /* SelectGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */; };
 		D1F25DA92CA9D24700DD3FF8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DA82CA9D24700DD3FF8 /* GameViewController.swift */; };
 		D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */; };
+		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
 		FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212B2CAC607200FB0F48 /* ResultModel.swift */; };
 		FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212D2CAC609300FB0F48 /* ResultView.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameViewController.swift; sourceTree = "<group>"; };
 		D1F25DA82CA9D24700DD3FF8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC22212B2CAC607200FB0F48 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		FC22212D2CAC609300FB0F48 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,11 +92,11 @@
 		D18696422CA9ADA200647D14 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
+				FAA1C9D82CAD776D00E94550 /* OnboardingModule */,
 				D1E8EFD52CACE8A1008242E7 /* SettingsModule */,
 				FC22212A2CAC605500FB0F48 /* ResultsModule */,
 				D14462D02CA9E73800896542 /* Extensions */,
 				D14462CF2CA9E71200896542 /* Resources */,
-				D18696472CA9ADA200647D14 /* OnboardingViewController.swift */,
 				D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */,
 				D1F25DA82CA9D24700DD3FF8 /* GameViewController.swift */,
 				D186964E2CA9ADA700647D14 /* LaunchScreen.storyboard */,
@@ -138,6 +140,15 @@
 				D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		FAA1C9D82CAD776D00E94550 /* OnboardingModule */ = {
+			isa = PBXGroup;
+			children = (
+				D18696472CA9ADA200647D14 /* OnboardingViewController.swift */,
+				FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */,
+			);
+			path = OnboardingModule;
 			sourceTree = "<group>";
 		};
 		FC22212A2CAC605500FB0F48 /* ResultsModule */ = {
@@ -233,6 +244,7 @@
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
 				D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */,
 				D1E8EFDE2CACE8A1008242E7 /* SettingsViewController.swift in Sources */,
+				FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
