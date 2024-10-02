@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11B93CB82CAC003200E1F11F /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B93CB72CAC003200E1F11F /* GameCollectionViewCell.swift */; };
 		D14462D22CA9E7DD00896542 /* UIButton_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14462D12CA9E7DD00896542 /* UIButton_Extension.swift */; };
 		D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18696432CA9ADA200647D14 /* AppDelegate.swift */; };
 		D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18696452CA9ADA200647D14 /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11B93CB72CAC003200E1F11F /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewCell.swift; sourceTree = "<group>"; };
 		D14462D12CA9E7DD00896542 /* UIButton_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton_Extension.swift; sourceTree = "<group>"; };
 		D18696402CA9ADA200647D14 /* TicTacToeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18696432CA9ADA200647D14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11B93CB52CABFF3B00E1F11F /* GameScreen */ = {
+			isa = PBXGroup;
+			children = (
+				11B93CB62CABFF9E00E1F11F /* Cell */,
+				D1F25DA82CA9D24700DD3FF8 /* GameViewController.swift */,
+			);
+			path = GameScreen;
+			sourceTree = "<group>";
+		};
+		11B93CB62CABFF9E00E1F11F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				11B93CB72CAC003200E1F11F /* GameCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		D14462CF2CA9E71200896542 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +106,7 @@
 				D18696472CA9ADA200647D14 /* OnboardingViewController.swift */,
 				D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */,
 				D1F25DA62CA9D22900DD3FF8 /* SettingsViewController.swift */,
-				D1F25DA82CA9D24700DD3FF8 /* GameViewController.swift */,
+				11B93CB52CABFF3B00E1F11F /* GameScreen */,
 				D1F25DAA2CA9D25B00DD3FF8 /* RulesViewController.swift */,
 				D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */,
 				D186964E2CA9ADA700647D14 /* LaunchScreen.storyboard */,
@@ -174,6 +193,7 @@
 				D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */,
 				D1F25DA32CA9D18E00DD3FF8 /* SelectGameViewController.swift in Sources */,
 				D1F25DA72CA9D22900DD3FF8 /* SettingsViewController.swift in Sources */,
+				11B93CB82CAC003200E1F11F /* GameCollectionViewCell.swift in Sources */,
 				D1F25DA92CA9D24700DD3FF8 /* GameViewController.swift in Sources */,
 				D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */,
 				D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */,

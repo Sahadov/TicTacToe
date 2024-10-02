@@ -155,7 +155,7 @@ class GameViewController: UIViewController {
         containerView.addSubview(fieldCollection)
         view.addSubview(containerView)
         
-        fieldCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "UICollectionVeiwCell")
+        fieldCollection.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.identifier)
     }
     
     private func setDelegate() {
@@ -175,7 +175,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = fieldCollection.dequeueReusableCell(withReuseIdentifier: "UICollectionVeiwCell", for: indexPath)
+        let cell = fieldCollection.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as! GameCollectionViewCell
         cell.backgroundColor = UIColor(red: 0.902, green: 0.914, blue: 0.976, alpha: 1)
         cell.layer.cornerRadius = 20
         return cell
