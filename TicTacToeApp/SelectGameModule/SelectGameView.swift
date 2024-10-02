@@ -1,6 +1,6 @@
 import UIKit
 
-class SelectGameViewController: UIViewController {
+class SelectGameView: UIView {
     
     //MARK: - Properties
     private let containerView = UIView.makeContainerView()
@@ -14,92 +14,61 @@ class SelectGameViewController: UIViewController {
         return title
     }()
     
-    private let singlePlayerButton: UIButton = {
+    let singlePlayerButton: UIButton = {
         let button = UIButton.makeCustomButtonWithImage(with: "Single Player", color: .gray, imageName: .singlePlayer)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let twoPlayersButton: UIButton = {
+    let twoPlayersButton: UIButton = {
         let button = UIButton.makeCustomButtonWithImage(with: "Two Players", color: .gray, imageName: .twoPlayers)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let leaderboardButton: UIButton = {
+    let leaderboardButton: UIButton = {
         let button = UIButton.makeCustomButtonWithImage(with: "Leaderboard", color: .gray, imageName: .leaderboard)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
-    //MARK: - View cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigationBar()
-        setViews()
+    
+    //MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
         setConstraints()
-        setupButtons()
-    }
-
-    //MARK: - Setup UI
-    private func setupNavigationBar() {
-        let settingButton = UIBarButtonItem(image: UIImage(named: "Setting"), style: .done, target: self, action: #selector(barButtonTapped))
-        settingButton.tintColor = UIColor(red: 39 / 255, green: 37 / 255, blue: 65 / 255, alpha: 1)
-        settingButton.title = "Setting"
-        navigationItem.rightBarButtonItem = settingButton
-        
-        navigationItem.hidesBackButton = true
     }
     
-    private func setViews() {
-        view.backgroundColor = UIColor(red: 245 / 255, green: 247 / 255, blue: 255 / 255, alpha: 1)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Setup UI
+    private func setupViews() {
+        backgroundColor = UIColor(red: 245 / 255, green: 247 / 255, blue: 255 / 255, alpha: 1)
         
-        view.addSubview(containerView)
+        addSubview(containerView)
         
         [titleLabel, singlePlayerButton, twoPlayersButton, leaderboardButton].forEach { containerView.addSubview($0) }
     }
     
-    private func setupButtons() {
-        singlePlayerButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
-        twoPlayersButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
-        leaderboardButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
-    }
-    
-    //MARK: - Methods
-    @objc private func barButtonTapped() {
-        let destinationVC = SettingsViewController()
-        navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    @objc private func buttonsTapped(sender: UIButton) {
-        guard let title = sender.titleLabel?.text else { return }
+    func setupNavigationBar(for viewController: UIViewController, target: AnyObject, action: Selector) {
+        let settingButton = UIBarButtonItem(image: UIImage(named: "Setting"), style: .done, target: target, action: action)
+        settingButton.tintColor = UIColor(red: 39 / 255, green: 37 / 255, blue: 65 / 255, alpha: 1)
+        settingButton.title = "Setting"
+        viewController.navigationItem.rightBarButtonItem = settingButton
         
-        let destinationVC: UIViewController
-        
-        switch title {
-        case "Single Player":
-            destinationVC = GameViewController()
-        case "Two Players":
-            destinationVC = GameViewController()
-        case "Leaderboard":
-            //change to LeaderboardViewController
-            destinationVC = UIViewController()
-        default:
-            destinationVC = UIViewController()
-        }
-        
-        navigationController?.pushViewController(destinationVC, animated: true)
+        viewController.navigationItem.hidesBackButton = true
     }
-
 }
 
-private extension SelectGameViewController {
+private extension SelectGameView {
     func setConstraints() {
         let paddingContainerView: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: centerYAnchor),
             containerView.widthAnchor.constraint(equalToConstant: 285),
             containerView.heightAnchor.constraint(equalToConstant: 336),
             
@@ -111,7 +80,7 @@ private extension SelectGameViewController {
             singlePlayerButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: paddingContainerView),
             singlePlayerButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -paddingContainerView),
             singlePlayerButton.heightAnchor.constraint(equalToConstant: 69),
-
+            
             twoPlayersButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: paddingContainerView),
             twoPlayersButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -paddingContainerView),
             twoPlayersButton.topAnchor.constraint(equalTo: singlePlayerButton.bottomAnchor, constant: paddingContainerView),
@@ -125,4 +94,3 @@ private extension SelectGameViewController {
         ])
     }
 }
-
