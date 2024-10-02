@@ -30,6 +30,8 @@
 		D1E8EFDF2CACE8A1008242E7 /* CardSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E8EFDB2CACE8A1008242E7 /* CardSettings.swift */; };
 		D1E8EFE02CACE8A1008242E7 /* GameTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */; };
 		D1EFF6D82CAE09F6008837FC /* SelectGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFF6D72CAE09F6008837FC /* SelectGameViewController.swift */; };
+		D1EFF6DE2CAE1004008837FC /* UIViewController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFF6DD2CAE1004008837FC /* UIViewController_Extension.swift */; };
+		D1EFF6E02CAE115E008837FC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFF6DF2CAE115E008837FC /* BaseViewController.swift */; };
 		D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */; };
 		FA184AF72CADAA690026315F /* SelectGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA184AF62CADAA690026315F /* SelectGameView.swift */; };
 		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
@@ -63,6 +65,8 @@
 		D1E8EFDB2CACE8A1008242E7 /* CardSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettings.swift; sourceTree = "<group>"; };
 		D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimeView.swift; sourceTree = "<group>"; };
 		D1EFF6D72CAE09F6008837FC /* SelectGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGameViewController.swift; sourceTree = "<group>"; };
+		D1EFF6DD2CAE1004008837FC /* UIViewController_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Extension.swift; sourceTree = "<group>"; };
+		D1EFF6DF2CAE115E008837FC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		FA184AF62CADAA690026315F /* SelectGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameView.swift; sourceTree = "<group>"; };
 		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				11F9E9312CAD6CB500832B7F /* UIViewExtensions.swift */,
 				11F9E9332CAD703500832B7F /* UIImageViewFactory.swift */,
 				11F9E9352CAD737A00832B7F /* LabelFactory.swift */,
+				D1EFF6DD2CAE1004008837FC /* UIViewController_Extension.swift */,
+				D1EFF6DF2CAE115E008837FC /* BaseViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 				D1E8EFDF2CACE8A1008242E7 /* CardSettings.swift in Sources */,
 				D12837052CADA717004E024F /* RuleViewFactory.swift in Sources */,
 				D18696482CA9ADA200647D14 /* OnboardingViewController.swift in Sources */,
+				D1EFF6E02CAE115E008837FC /* BaseViewController.swift in Sources */,
 				11F9E9342CAD703500832B7F /* UIImageViewFactory.swift in Sources */,
 				11F9E92C2CAD3E0C00832B7F /* GameView.swift in Sources */,
 				11F9E9272CAD3C4C00832B7F /* GameViewController.swift in Sources */,
@@ -305,6 +312,7 @@
 				D1E8EFDD2CACE8A1008242E7 /* CardSettingsStack.swift in Sources */,
 				D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */,
 				11F9E9362CAD737A00832B7F /* LabelFactory.swift in Sources */,
+				D1EFF6DE2CAE1004008837FC /* UIViewController_Extension.swift in Sources */,
 				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
