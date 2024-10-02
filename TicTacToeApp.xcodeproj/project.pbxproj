@@ -31,6 +31,7 @@
 		D1E8EFE02CACE8A1008242E7 /* GameTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */; };
 		D1F25DA32CA9D18E00DD3FF8 /* SelectGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */; };
 		D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */; };
+		FA184AF72CADAA690026315F /* SelectGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA184AF62CADAA690026315F /* SelectGameView.swift */; };
 		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
 		FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212B2CAC607200FB0F48 /* ResultModel.swift */; };
 		FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212D2CAC609300FB0F48 /* ResultView.swift */; };
@@ -63,6 +64,7 @@
 		D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimeView.swift; sourceTree = "<group>"; };
 		D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameViewController.swift; sourceTree = "<group>"; };
 		D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		FA184AF62CADAA690026315F /* SelectGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameView.swift; sourceTree = "<group>"; };
 		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC22212B2CAC607200FB0F48 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		FC22212D2CAC609300FB0F48 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		D18696422CA9ADA200647D14 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
+				FA184AF52CADAA0A0026315F /* SelectGameModule */,
 				D12836FE2CADA717004E024F /* RulesModule */,
 				FAA1C9D82CAD776D00E94550 /* OnboardingModule */,
 				D1E8EFD52CACE8A1008242E7 /* SettingsModule */,
@@ -189,6 +192,15 @@
 				D1E8EFDC2CACE8A1008242E7 /* GameTimeView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		FA184AF52CADAA0A0026315F /* SelectGameModule */ = {
+			isa = PBXGroup;
+			children = (
+				D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */,
+				FA184AF62CADAA690026315F /* SelectGameView.swift */,
+			);
+			path = SelectGameModule;
 			sourceTree = "<group>";
 		};
 		FAA1C9D82CAD776D00E94550 /* OnboardingModule */ = {
@@ -302,6 +314,7 @@
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
 				D12837062CADA717004E024F /* RulesViewController.swift in Sources */,
 				D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */,
+				FA184AF72CADAA690026315F /* SelectGameView.swift in Sources */,
 				11F9E9322CAD6CB500832B7F /* UIViewExtensions.swift in Sources */,
 				D1E8EFDE2CACE8A1008242E7 /* SettingsViewController.swift in Sources */,
 				FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */,

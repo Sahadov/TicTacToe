@@ -1,21 +1,7 @@
-//
-//  UIViewExtensions.swift
-//  TicTacToeApp
-//
-//  Created by Alexander Bokhulenkov on 02.10.2024.
-//
-
 import UIKit
 
 extension UIView {
-    static func playerContainer() -> UIView {
-        let view = UIView()
-        view.backgroundColor = UIColor.CustomColors.lightBlue
-        view.layer.cornerRadius = 30
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }
-    
+    //Base ContainerView with shadow
     static func makeContainerView(backgroundColor: UIColor = .white) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +13,7 @@ extension UIView {
         view.layer.shadowOffset = CGSize(width: 4, height: 4)
         view.layer.shadowRadius = 30
         view.layer.masksToBounds = false
-        
+
         return view
     }
 }
