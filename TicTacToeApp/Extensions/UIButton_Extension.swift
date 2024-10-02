@@ -44,6 +44,7 @@ extension UIButton {
     enum ImageName: String {
         case singlePlayer = "SinglePlayer"
         case twoPlayers = "TwoPlayers"
+        case leaderboard = "LeaderBoard"
     }
     
     static func makeCustomButtonWithImage(with title: String, color: ButtonColor, imageName: ImageName) -> UIButton

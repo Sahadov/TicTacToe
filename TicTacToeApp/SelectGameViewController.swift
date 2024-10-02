@@ -3,19 +3,7 @@ import UIKit
 class SelectGameViewController: UIViewController {
     
     //MARK: - Properties
-    private let containerView: UIView = {
-        let view = UIView.makeContainerView()
-        return view
-    }()
-    
-    private let stackContainerView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
+    private let containerView = UIView.makeContainerView()
     
     private let titleLabel: UILabel = {
         let title = UILabel()
@@ -37,6 +25,12 @@ class SelectGameViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    private let leaderboardButton: UIButton = {
+        let button = UIButton.makeCustomButtonWithImage(with: "Leaderboard", color: .gray, imageName: .leaderboard)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     //MARK: - View cycle
     override func viewDidLoad() {
@@ -44,6 +38,7 @@ class SelectGameViewController: UIViewController {
         setupNavigationBar()
         setViews()
         setConstraints()
+        setupButtons()
     }
 
     //MARK: - Setup UI
@@ -60,14 +55,39 @@ class SelectGameViewController: UIViewController {
         view.backgroundColor = UIColor(red: 245 / 255, green: 247 / 255, blue: 255 / 255, alpha: 1)
         
         view.addSubview(containerView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(singlePlayerButton)
-        containerView.addSubview(twoPlayersButton)
+        
+        [titleLabel, singlePlayerButton, twoPlayersButton, leaderboardButton].forEach { containerView.addSubview($0) }
+    }
+    
+    private func setupButtons() {
+        singlePlayerButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
+        twoPlayersButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
+        leaderboardButton.addTarget(self, action: #selector(buttonsTapped), for: .touchUpInside)
     }
     
     //MARK: - Methods
     @objc private func barButtonTapped() {
         let destinationVC = SettingsViewController()
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    @objc private func buttonsTapped(sender: UIButton) {
+        guard let title = sender.titleLabel?.text else { return }
+        
+        let destinationVC: UIViewController
+        
+        switch title {
+        case "Single Player":
+            destinationVC = GameViewController()
+        case "Two Players":
+            destinationVC = GameViewController()
+        case "Leaderboard":
+            //change to LeaderboardViewController
+            destinationVC = UIViewController()
+        default:
+            destinationVC = UIViewController()
+        }
+        
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 
@@ -81,7 +101,7 @@ private extension SelectGameViewController {
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.widthAnchor.constraint(equalToConstant: 285),
-            containerView.heightAnchor.constraint(equalToConstant: 247),
+            containerView.heightAnchor.constraint(equalToConstant: 336),
             
             titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: paddingContainerView),
@@ -95,8 +115,13 @@ private extension SelectGameViewController {
             twoPlayersButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: paddingContainerView),
             twoPlayersButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -paddingContainerView),
             twoPlayersButton.topAnchor.constraint(equalTo: singlePlayerButton.bottomAnchor, constant: paddingContainerView),
-            twoPlayersButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -paddingContainerView),
-            twoPlayersButton.heightAnchor.constraint(equalToConstant: 69)
+            twoPlayersButton.heightAnchor.constraint(equalToConstant: 69),
+            
+            leaderboardButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: paddingContainerView),
+            leaderboardButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -paddingContainerView),
+            leaderboardButton.topAnchor.constraint(equalTo: twoPlayersButton.bottomAnchor, constant: paddingContainerView),
+            leaderboardButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -paddingContainerView),
+            leaderboardButton.heightAnchor.constraint(equalToConstant: 69)
         ])
     }
 }
