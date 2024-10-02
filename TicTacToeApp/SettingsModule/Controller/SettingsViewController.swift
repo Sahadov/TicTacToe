@@ -9,7 +9,7 @@
 import UIKit
 
 
-final class SettingsViewController: UIViewController {
+final class SettingsViewController: BaseViewController {
     
     //MARK: - Private Property
     

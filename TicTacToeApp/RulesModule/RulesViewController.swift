@@ -1,6 +1,6 @@
 import UIKit
 
-final class RulesViewController: UIViewController {
+final class RulesViewController: BaseViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -13,15 +13,7 @@ final class RulesViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-//    private lazy var backButton: UIButton = {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setImage(UIImage(named: "BackIcon"), for: .normal)
-//        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-//        return button
-//    }()
-    
+        
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,11 +42,6 @@ final class RulesViewController: UIViewController {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 66),
-            
-            //backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            //backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 7),
-            //backButton.heightAnchor.constraint(equalToConstant: 44),
-            //backButton.widthAnchor.constraint(equalToConstant: 44),
             
             scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 43),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -91,8 +78,5 @@ final class RulesViewController: UIViewController {
             lastRuleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         }
     }
-    
-    @objc private func didTapBackButton() {
-        // TO-DO: Back to main page
-    }
+
 }
