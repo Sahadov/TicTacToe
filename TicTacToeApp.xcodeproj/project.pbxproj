@@ -15,6 +15,10 @@
 		11F9E9322CAD6CB500832B7F /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9312CAD6CB500832B7F /* UIViewExtensions.swift */; };
 		11F9E9342CAD703500832B7F /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9332CAD703500832B7F /* UIImageViewFactory.swift */; };
 		11F9E9362CAD737A00832B7F /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9352CAD737A00832B7F /* LabelFactory.swift */; };
+		D12837032CADA717004E024F /* RuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12836FF2CADA717004E024F /* RuleView.swift */; };
+		D12837042CADA717004E024F /* RuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12837002CADA717004E024F /* RuleModel.swift */; };
+		D12837052CADA717004E024F /* RuleViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12837012CADA717004E024F /* RuleViewFactory.swift */; };
+		D12837062CADA717004E024F /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12837022CADA717004E024F /* RulesViewController.swift */; };
 		D14462D22CA9E7DD00896542 /* UIButton_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14462D12CA9E7DD00896542 /* UIButton_Extension.swift */; };
 		D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18696432CA9ADA200647D14 /* AppDelegate.swift */; };
 		D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18696452CA9ADA200647D14 /* SceneDelegate.swift */; };
@@ -41,6 +45,10 @@
 		11F9E9312CAD6CB500832B7F /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		11F9E9332CAD703500832B7F /* UIImageViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		11F9E9352CAD737A00832B7F /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		D12836FF2CADA717004E024F /* RuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleView.swift; sourceTree = "<group>"; };
+		D12837002CADA717004E024F /* RuleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleModel.swift; sourceTree = "<group>"; };
+		D12837012CADA717004E024F /* RuleViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleViewFactory.swift; sourceTree = "<group>"; };
+		D12837022CADA717004E024F /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		D14462D12CA9E7DD00896542 /* UIButton_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton_Extension.swift; sourceTree = "<group>"; };
 		D18696402CA9ADA200647D14 /* TicTacToeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18696432CA9ADA200647D14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +87,17 @@
 				11F9E92B2CAD3E0C00832B7F /* GameView.swift */,
 			);
 			path = GameModule;
+			sourceTree = "<group>";
+		};
+		D12836FE2CADA717004E024F /* RulesModule */ = {
+			isa = PBXGroup;
+			children = (
+				D12836FF2CADA717004E024F /* RuleView.swift */,
+				D12837002CADA717004E024F /* RuleModel.swift */,
+				D12837012CADA717004E024F /* RuleViewFactory.swift */,
+				D12837022CADA717004E024F /* RulesViewController.swift */,
+			);
+			path = RulesModule;
 			sourceTree = "<group>";
 		};
 		D14462CF2CA9E71200896542 /* Resources */ = {
@@ -121,13 +140,14 @@
 		D18696422CA9ADA200647D14 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
+				D12836FE2CADA717004E024F /* RulesModule */,
 				FAA1C9D82CAD776D00E94550 /* OnboardingModule */,
 				D1E8EFD52CACE8A1008242E7 /* SettingsModule */,
 				FC22212A2CAC605500FB0F48 /* ResultsModule */,
 				D14462D02CA9E73800896542 /* Extensions */,
 				D14462CF2CA9E71200896542 /* Resources */,
-				D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */,
 				11F9E92A2CAD3D3A00832B7F /* GameModule */,
+				D1F25DA22CA9D18E00DD3FF8 /* SelectGameViewController.swift */,
 				D186964E2CA9ADA700647D14 /* LaunchScreen.storyboard */,
 				D18696432CA9ADA200647D14 /* AppDelegate.swift */,
 				D18696452CA9ADA200647D14 /* SceneDelegate.swift */,
@@ -263,6 +283,7 @@
 				D14462D22CA9E7DD00896542 /* UIButton_Extension.swift in Sources */,
 				FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */,
 				D1E8EFDF2CACE8A1008242E7 /* CardSettings.swift in Sources */,
+				D12837052CADA717004E024F /* RuleViewFactory.swift in Sources */,
 				D18696482CA9ADA200647D14 /* OnboardingViewController.swift in Sources */,
 				11F9E9342CAD703500832B7F /* UIImageViewFactory.swift in Sources */,
 				11F9E92C2CAD3E0C00832B7F /* GameView.swift in Sources */,
@@ -274,9 +295,12 @@
 				D1E8EFDD2CACE8A1008242E7 /* CardSettingsStack.swift in Sources */,
 				D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */,
 				11F9E9362CAD737A00832B7F /* LabelFactory.swift in Sources */,
+				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
+				D12837032CADA717004E024F /* RuleView.swift in Sources */,
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
+				D12837062CADA717004E024F /* RulesViewController.swift in Sources */,
 				D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */,
 				11F9E9322CAD6CB500832B7F /* UIViewExtensions.swift in Sources */,
 				D1E8EFDE2CACE8A1008242E7 /* SettingsViewController.swift in Sources */,
