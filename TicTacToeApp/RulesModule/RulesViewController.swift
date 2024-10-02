@@ -14,13 +14,13 @@ final class RulesViewController: UIViewController {
         return view
     }()
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "BackIcon"), for: .normal)
-        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var backButton: UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setImage(UIImage(named: "BackIcon"), for: .normal)
+//        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+//        return button
+//    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -42,7 +42,7 @@ final class RulesViewController: UIViewController {
     }
     
     private func addSubViews() {
-        [backButton, titleLabel, scrollView].forEach { view.addSubview($0) }
+        [titleLabel, scrollView].forEach { view.addSubview($0) }
         scrollView.addSubview(contentView)
     }
     
@@ -51,10 +51,10 @@ final class RulesViewController: UIViewController {
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 66),
             
-            backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 7),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
+            //backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            //backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 7),
+            //backButton.heightAnchor.constraint(equalToConstant: 44),
+            //backButton.widthAnchor.constraint(equalToConstant: 44),
             
             scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 43),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

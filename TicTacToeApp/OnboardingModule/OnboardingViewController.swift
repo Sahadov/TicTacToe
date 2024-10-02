@@ -30,14 +30,15 @@ class OnboardingViewController: UIViewController {
             destinationVC = SettingsViewController()
         } else if title == "Question" {
             //change to RulesViewController
-            destinationVC = SettingsViewController()
+            destinationVC = RulesViewController()
         } else { return }
 
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     @objc private func letsPlayButtonTapped() {
-        let destinationVC = SelectGameViewController()
+        //let destinationVC = SelectGameViewController()
+        let destinationVC = GameViewController()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
