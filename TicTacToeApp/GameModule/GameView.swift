@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol GameViewDelegate: AnyObject {
+    func firstPlayer(isSelected: Bool)
+}
+
 final class GameView: UIView {
+    
+    weak var delegate: GameViewDelegate?
     
     // MARK: - UI
     
@@ -41,7 +47,7 @@ final class GameView: UIView {
         return view
     }()
     
-    private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
+    private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     
     private let selectPlayerLabel = LabelFactory.playerName("You turn")
     
@@ -72,6 +78,13 @@ final class GameView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setView()
+        
+        //        выбор игрока на поле
+        let tapGestureYou = UITapGestureRecognizer(target: self, action: #selector(tapedYouButton))
+        firstPlayerContainer.addGestureRecognizer(tapGestureYou)
+        let tapGestureTwo = UITapGestureRecognizer(target: self, action: #selector(tapedTwoButton))
+        secondPlayerContainer.addGestureRecognizer(tapGestureTwo)
+        
         setConstraints()
     }
     
@@ -107,6 +120,21 @@ final class GameView: UIView {
         fieldCollection.dataSource = delegate
     }
     
+    // MARK: - Actions
+    
+    @objc func tapedYouButton() {
+        selectPlayerLabel.text = "Your turn"
+        selectPlayerImage.image = UIImage.CustomImage.cross
+        delegate?.firstPlayer(isSelected: true)
+        UIViewFactory.tapButton(firstPlayerContainer)
+    }
+    
+    @objc func tapedTwoButton() {
+        selectPlayerLabel.text = "Player Two turn"
+        selectPlayerImage.image = UIImage.CustomImage.nought
+        delegate?.firstPlayer(isSelected: false)
+        UIViewFactory.tapButton(secondPlayerContainer)
+    }
 }
 
 
@@ -143,7 +171,7 @@ extension GameView {
             playerLabel2.topAnchor.constraint(equalTo: playerImage2.bottomAnchor, constant: 10),
             playerLabel2.centerXAnchor.constraint(equalTo: secondPlayerContainer.centerXAnchor),
             
-//            центральная часть
+            //            центральная часть
             selectedPlayerView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             selectedPlayerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 84),
             selectedPlayerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -84),
@@ -154,7 +182,7 @@ extension GameView {
             selectPlayerLabel.leadingAnchor.constraint(equalTo: selectPlayerImage.trailingAnchor, constant: 5),
             
             
-//            игра
+            //            игра
             containerView.topAnchor.constraint(equalTo: selectedPlayerView.bottomAnchor, constant: 30),
             containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),

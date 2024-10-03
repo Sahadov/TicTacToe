@@ -14,6 +14,11 @@ class GameViewController: BaseViewController {
     private let cellCount = 9
     private let gameView = GameView()
     
+    private var field: [UIImage?] = .init(repeating: nil, count: 9)
+    private let firstPlayer = "Cross"
+    private let secondPlayer = "Nought"
+    private var selectedField = true
+    
     // MARK: - Life Cycle
     override func loadView() {
         view = gameView
@@ -24,6 +29,7 @@ class GameViewController: BaseViewController {
         
         view.backgroundColor = UIColor.CustomColors.backgroundBlue
         gameView.setDelegate(self)
+        gameView.delegate = self
     }
 }
 
@@ -40,7 +46,25 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as! GameCollectionViewCell
         cell.backgroundColor = UIColor.CustomColors.backgroundBlue
         cell.layer.cornerRadius = 20
+        
+        let image = field[indexPath.row]
+        cell.configure(image: image)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("выбрана ячейка с номером \(indexPath.item)")
+        var image: UIImage?
+        if selectedField {
+            image = UIImage(named: firstPlayer)
+            selectedField = false
+        } else {
+            image = UIImage(named: secondPlayer)
+            selectedField = true
+        }
+        
+        field[indexPath.row] = image
+        collectionView.reloadItems(at: [indexPath])
     }
 }
 
@@ -69,3 +93,11 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - Extensions GameViewDelegate
+extension GameViewController: GameViewDelegate {
+    func firstPlayer(isSelected: Bool) {
+        selectedField = isSelected
+    }
+    
+    
+}
