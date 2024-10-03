@@ -21,18 +21,19 @@ final class SettingsViewController: UIViewController {
     private var stackViewVertical: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 16
+        stackView.spacing = 22
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    private let card1 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
-    private let card2 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
-    private let card3 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
-    private let card4 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
-    private let card5 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
-    private let card6 = CardSettings(image: UIImage(named: "Cross")!, buttonTitle: "Coose")
+    
+    private var card1 = CardSettings()
+    private var card2 = CardSettings()
+    private var card3 = CardSettings()
+    private var card4 = CardSettings()
+    private var card5 = CardSettings()
+    private var card6 = CardSettings()
     
     private lazy var horizontalStack1 = CardSettingsStack(cards: [card1, card2])
     private lazy var horizontalStack2 = CardSettingsStack(cards: [card3, card4])
@@ -44,15 +45,16 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        let cardSettings = CardSettings()
+        cardSettings.delegate.self
         
+        view.backgroundColor = UIColor(named: "BlueBg")
         
         addViews()
         setupStackVertical()
         setupGameView()
         setupScrollView()
     }
-    
     
     
     //MARK: - Private Methods
@@ -71,6 +73,7 @@ final class SettingsViewController: UIViewController {
         
         contentView.addSubview(gameTimeView)
         contentView.addSubview(stackViewVertical)
+        
         
         stackViewVertical.addArrangedSubview(horizontalStack1)
         stackViewVertical.addArrangedSubview(horizontalStack2)
@@ -116,13 +119,24 @@ final class SettingsViewController: UIViewController {
             gameTimeView.widthAnchor.constraint(equalToConstant: 350),
             gameTimeView.heightAnchor.constraint(equalToConstant: 270),
             
+            
             // Ограничения для stackViewVertical
             stackViewVertical.topAnchor.constraint(equalTo: gameTimeView.bottomAnchor, constant: 40),
             stackViewVertical.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             stackViewVertical.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             stackViewVertical.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40), // Для правильного скролла
-            stackViewVertical.heightAnchor.constraint(equalToConstant: 340)
+            stackViewVertical.heightAnchor.constraint(equalToConstant: 360)
         ])
     }
 }
+
+
+extension SettingsViewController: CardSettingsProtocol {
+    func changeButton(_ button: UIButton) {
+        print("hgchgc\(button)")
+    }
+    
+    
+}
+
 

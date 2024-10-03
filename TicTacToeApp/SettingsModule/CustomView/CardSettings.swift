@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol CardSettingsProtocol: AnyObject {
+    func changeButton(_ button: UIButton)
+}
+
 
 final class CardSettings: UIView {
     
+    weak var delegate: CardSettingsProtocol?
     //MARK: - Private Property
     
     private let xSkinView = UIImageView()
@@ -21,6 +26,7 @@ final class CardSettings: UIView {
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.layer.cornerRadius = 24
         customView.backgroundColor = .white
+        customView.isUserInteractionEnabled = false
         return customView
     }()
     
@@ -40,37 +46,39 @@ final class CardSettings: UIView {
         return stackView
     }()
     
-    private let customButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Choose", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 22
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
     
-    init(image: UIImage, buttonTitle: String) {
+    var customButton = UIButton.makeCustomButton(with: "Choose", color: .gray)
+    
+    
+    init() {
         super.init(frame: .zero)
-        customImage.image = image
-        customButton.setTitle(buttonTitle, for: .normal)
         
-        xSkinView.image = UIImage(named: "Nought")
+        
+        xSkinView.image = UIImage(named: "Cross")
         oSkinView.image = UIImage(named: "Cross")
         
         addSubview(customView)
         
+        customButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        
         setupLayout()
         setupStack(image: customImage)
         setupConstraints()
+        
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    
+    @objc func didTapButton() {
+        delegate?.changeButton(customButton)
+
+    }
+    
     
     //MARK: - Private Methods
     
@@ -89,9 +97,9 @@ final class CardSettings: UIView {
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([
-
+            
             customView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            customView.heightAnchor.constraint(equalToConstant: 152),
+            customView.heightAnchor.constraint(equalToConstant: 160),
             customView.widthAnchor.constraint(equalToConstant: 166),
             
             customImage.topAnchor.constraint(equalTo: customView.topAnchor, constant: 12),
@@ -108,14 +116,13 @@ final class CardSettings: UIView {
             customButton.topAnchor.constraint(equalTo: imageStack.bottomAnchor, constant: 12),
             customButton.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 12),
             customButton.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -12),
-            customButton.heightAnchor.constraint(equalToConstant: 44)
+            customButton.heightAnchor.constraint(equalToConstant: 56)
         ])
         
-        layer.cornerRadius = 30
         layer.borderWidth = 1
         
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.2
+        layer.shadowOpacity = 0.1
         layer.shadowRadius = 16
         layer.shadowOffset = CGSize(width: 5, height: 5)
         
