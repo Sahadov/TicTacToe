@@ -39,7 +39,7 @@ class SelectGameViewController: UIViewController {
         case "Single Player":
             destinationVC = GameViewController()
         case "Two Players":
-            destinationVC = GameViewController()
+            destinationVC = TwoPlayerGameViewController()
         case "Leaderboard":
             //change to LeaderboardViewController
             destinationVC = UIViewController()

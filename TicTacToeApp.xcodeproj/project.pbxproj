@@ -37,6 +37,10 @@
 		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
 		FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212B2CAC607200FB0F48 /* ResultModel.swift */; };
 		FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212D2CAC609300FB0F48 /* ResultView.swift */; };
+		FC2221352CAF056600FB0F48 /* TwoPlayerGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221342CAF056600FB0F48 /* TwoPlayerGameLogic.swift */; };
+		FC2221372CAF0A4B00FB0F48 /* TwoPlayerGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221362CAF0A4B00FB0F48 /* TwoPlayerGameViewController.swift */; };
+		FC2221392CAF0AAD00FB0F48 /* TwoPlayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2221382CAF0AAD00FB0F48 /* TwoPlayerGameView.swift */; };
+		FC22213B2CAF0B4400FB0F48 /* TwoPlayerGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22213A2CAF0B4400FB0F48 /* TwoPlayerGameCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +76,10 @@
 		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC22212B2CAC607200FB0F48 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		FC22212D2CAC609300FB0F48 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		FC2221342CAF056600FB0F48 /* TwoPlayerGameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameLogic.swift; sourceTree = "<group>"; };
+		FC2221362CAF0A4B00FB0F48 /* TwoPlayerGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameViewController.swift; sourceTree = "<group>"; };
+		FC2221382CAF0AAD00FB0F48 /* TwoPlayerGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameView.swift; sourceTree = "<group>"; };
+		FC22213A2CAF0B4400FB0F48 /* TwoPlayerGameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +99,7 @@
 				11F9E9262CAD3C4C00832B7F /* GameViewController.swift */,
 				11F9E9282CAD3C7200832B7F /* GameCollectionViewCell.swift */,
 				11F9E92B2CAD3E0C00832B7F /* GameView.swift */,
+				FC2221332CAF055600FB0F48 /* 2PlayerGame */,
 			);
 			path = GameModule;
 			sourceTree = "<group>";
@@ -227,6 +236,17 @@
 			path = ResultsModule;
 			sourceTree = "<group>";
 		};
+		FC2221332CAF055600FB0F48 /* 2PlayerGame */ = {
+			isa = PBXGroup;
+			children = (
+				FC2221342CAF056600FB0F48 /* TwoPlayerGameLogic.swift */,
+				FC2221362CAF0A4B00FB0F48 /* TwoPlayerGameViewController.swift */,
+				FC2221382CAF0AAD00FB0F48 /* TwoPlayerGameView.swift */,
+				FC22213A2CAF0B4400FB0F48 /* TwoPlayerGameCollectionViewCell.swift */,
+			);
+			path = 2PlayerGame;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -305,7 +325,9 @@
 				D1EFF6E02CAE115E008837FC /* BaseViewController.swift in Sources */,
 				11F9E9342CAD703500832B7F /* UIImageViewFactory.swift in Sources */,
 				11F9E92C2CAD3E0C00832B7F /* GameView.swift in Sources */,
+				FC22213B2CAF0B4400FB0F48 /* TwoPlayerGameCollectionViewCell.swift in Sources */,
 				11F9E9272CAD3C4C00832B7F /* GameViewController.swift in Sources */,
+				FC2221352CAF056600FB0F48 /* TwoPlayerGameLogic.swift in Sources */,
 				D1E8EFE02CACE8A1008242E7 /* GameTimeView.swift in Sources */,
 				D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */,
 				11F9E9302CAD655000832B7F /* ImageExtension.swift in Sources */,
@@ -314,7 +336,9 @@
 				11F9E9362CAD737A00832B7F /* LabelFactory.swift in Sources */,
 				D1EFF6DE2CAE1004008837FC /* UIViewController_Extension.swift in Sources */,
 				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
+				FC2221372CAF0A4B00FB0F48 /* TwoPlayerGameViewController.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
+				FC2221392CAF0AAD00FB0F48 /* TwoPlayerGameView.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
 				D12837032CADA717004E024F /* RuleView.swift in Sources */,
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
