@@ -40,4 +40,44 @@ extension UIButton {
         }
         return button
     }
+    
+    enum ImageName: String {
+        case singlePlayer = "SinglePlayer"
+        case twoPlayers = "TwoPlayers"
+        case leaderboard = "LeaderBoard"
+    }
+    
+    static func makeCustomButtonWithImage(with title: String, color: ButtonColor, imageName: ImageName) -> UIButton
+    {
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = title
+        configuration.image = UIImage(named: imageName.rawValue)
+        configuration.imagePadding = 10
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            return outgoing
+        }
+        
+        let button = UIButton(configuration: configuration, primaryAction: nil)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
+                
+        switch color {
+        case .blue:
+            button.configuration?.baseForegroundColor = .white
+            button.backgroundColor = UIColor(named: "AccentColor")
+        case .gray:
+            button.configuration?.baseForegroundColor = .black
+            button.backgroundColor = UIColor(named: "BlueLight")
+        case .white:
+            button.configuration?.baseForegroundColor = UIColor(named: "AccentColor")
+            button.backgroundColor = .white
+            button.layer.borderWidth = 2
+            button.layer.borderColor = UIColor(named: "AccentColor")?.cgColor
+        }
+        
+        return button
+    }
 }
