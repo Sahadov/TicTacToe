@@ -15,6 +15,10 @@
 		11F9E9322CAD6CB500832B7F /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9312CAD6CB500832B7F /* UIViewExtensions.swift */; };
 		11F9E9342CAD703500832B7F /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9332CAD703500832B7F /* UIImageViewFactory.swift */; };
 		11F9E9362CAD737A00832B7F /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9E9352CAD737A00832B7F /* LabelFactory.swift */; };
+		16E05B7B2CAF07C60039604C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E05B782CAF07C60039604C /* LeaderboardView.swift */; };
+		16E05B7C2CAF07C60039604C /* LeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E05B792CAF07C60039604C /* LeaderModel.swift */; };
+		16E05B7D2CAF07C60039604C /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E05B772CAF07C60039604C /* LeaderboardViewController.swift */; };
+		16E05B7E2CAF07C60039604C /* LeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E05B762CAF07C60039604C /* LeaderCell.swift */; };
 		D12837032CADA717004E024F /* RuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12836FF2CADA717004E024F /* RuleView.swift */; };
 		D12837042CADA717004E024F /* RuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12837002CADA717004E024F /* RuleModel.swift */; };
 		D12837052CADA717004E024F /* RuleViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12837012CADA717004E024F /* RuleViewFactory.swift */; };
@@ -48,6 +52,10 @@
 		11F9E9312CAD6CB500832B7F /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		11F9E9332CAD703500832B7F /* UIImageViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		11F9E9352CAD737A00832B7F /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
+		16E05B762CAF07C60039604C /* LeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderCell.swift; sourceTree = "<group>"; };
+		16E05B772CAF07C60039604C /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
+		16E05B782CAF07C60039604C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		16E05B792CAF07C60039604C /* LeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderModel.swift; sourceTree = "<group>"; };
 		D12836FF2CADA717004E024F /* RuleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleView.swift; sourceTree = "<group>"; };
 		D12837002CADA717004E024F /* RuleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleModel.swift; sourceTree = "<group>"; };
 		D12837012CADA717004E024F /* RuleViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleViewFactory.swift; sourceTree = "<group>"; };
@@ -93,6 +101,17 @@
 				11F9E92B2CAD3E0C00832B7F /* GameView.swift */,
 			);
 			path = GameModule;
+			sourceTree = "<group>";
+		};
+		16E05B7A2CAF07C60039604C /* LeaderboardModule */ = {
+			isa = PBXGroup;
+			children = (
+				16E05B762CAF07C60039604C /* LeaderCell.swift */,
+				16E05B772CAF07C60039604C /* LeaderboardViewController.swift */,
+				16E05B782CAF07C60039604C /* LeaderboardView.swift */,
+				16E05B792CAF07C60039604C /* LeaderModel.swift */,
+			);
+			path = LeaderboardModule;
 			sourceTree = "<group>";
 		};
 		D12836FE2CADA717004E024F /* RulesModule */ = {
@@ -148,6 +167,7 @@
 		D18696422CA9ADA200647D14 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
+				16E05B7A2CAF07C60039604C /* LeaderboardModule */,
 				FA184AF52CADAA0A0026315F /* SelectGameModule */,
 				D12836FE2CADA717004E024F /* RulesModule */,
 				FAA1C9D82CAD776D00E94550 /* OnboardingModule */,
@@ -316,6 +336,10 @@
 				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
+				16E05B7B2CAF07C60039604C /* LeaderboardView.swift in Sources */,
+				16E05B7C2CAF07C60039604C /* LeaderModel.swift in Sources */,
+				16E05B7D2CAF07C60039604C /* LeaderboardViewController.swift in Sources */,
+				16E05B7E2CAF07C60039604C /* LeaderCell.swift in Sources */,
 				D12837032CADA717004E024F /* RuleView.swift in Sources */,
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
 				D12837062CADA717004E024F /* RulesViewController.swift in Sources */,
