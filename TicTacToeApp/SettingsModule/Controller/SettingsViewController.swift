@@ -15,6 +15,7 @@ final class SettingsViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()  // Контейнер для содержимого scrollView
+    var cardSettings = CardSettings()
     
     private let gameTimeView = GameTimeView()
     
@@ -45,8 +46,13 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cardSettings = CardSettings()
-        cardSettings.delegate.self
+        card1.delegate = self
+        card2.delegate = self
+        card3.delegate = self
+        card4.delegate = self
+        card5.delegate = self
+        card6.delegate = self
+        cardSettings.delegate = self
         
         view.backgroundColor = UIColor(named: "BlueBg")
         
@@ -73,8 +79,7 @@ final class SettingsViewController: UIViewController {
         
         contentView.addSubview(gameTimeView)
         contentView.addSubview(stackViewVertical)
-        
-        
+
         stackViewVertical.addArrangedSubview(horizontalStack1)
         stackViewVertical.addArrangedSubview(horizontalStack2)
         stackViewVertical.addArrangedSubview(horizontalStack3)
@@ -119,7 +124,6 @@ final class SettingsViewController: UIViewController {
             gameTimeView.widthAnchor.constraint(equalToConstant: 350),
             gameTimeView.heightAnchor.constraint(equalToConstant: 270),
             
-            
             // Ограничения для stackViewVertical
             stackViewVertical.topAnchor.constraint(equalTo: gameTimeView.bottomAnchor, constant: 40),
             stackViewVertical.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -133,10 +137,15 @@ final class SettingsViewController: UIViewController {
 
 extension SettingsViewController: CardSettingsProtocol {
     func changeButton(_ button: UIButton) {
-        print("hgchgc\(button)")
+        
+        print("kjsdkncsd")
+        //        [card1, card2, card3, card4, card5, card6].forEach { card in
+        //            if card !== button {
+        //                card.isSelected = false
+        //            }
+        //        }
+        //        print("\(button.customButton.titleLabel?.text ?? "") button was tapped.")
+        //    }
+        
     }
-    
-    
 }
-
-
