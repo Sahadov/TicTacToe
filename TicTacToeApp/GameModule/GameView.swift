@@ -27,9 +27,9 @@ final class GameView: UIView {
     private let playerImage1 = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     private let playerLabel1 = LabelFactory.playerName("You")
     
-    private let timeLabel: UILabel = {
+     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "1:59"
+//        label.text = "1:59"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -49,7 +49,7 @@ final class GameView: UIView {
     
     private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     
-    private let selectPlayerLabel = LabelFactory.playerName("You turn")
+    let selectPlayerLabel = LabelFactory.playerName("You turn")
     
     // игровое поле
     
