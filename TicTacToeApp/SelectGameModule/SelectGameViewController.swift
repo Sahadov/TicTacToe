@@ -26,7 +26,7 @@ class SelectGameViewController: UIViewController {
     }
     
     @objc func barButtonTapped() {
-        let destinationVC = SettingsViewController()
+        let destinationVC = GameSettingsViewController()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -39,7 +39,7 @@ class SelectGameViewController: UIViewController {
         case "Single Player":
             destinationVC = GameViewController()
         case "Two Players":
-            destinationVC = GameViewController()
+            destinationVC = TwoPlayerGameViewController()
         case "Leaderboard":
             destinationVC = LeaderboardViewController()
         default:
