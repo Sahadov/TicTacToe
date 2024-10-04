@@ -27,7 +27,7 @@ class OnboardingViewController: UIViewController {
         let destinationVC: UIViewController
 
         if title == "Setting" {
-            destinationVC = SettingsViewController()
+            destinationVC = GameSettingsViewController()
         } else if title == "Question" {
             destinationVC = RulesViewController()
         } else { return }
