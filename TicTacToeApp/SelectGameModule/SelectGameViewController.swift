@@ -26,7 +26,7 @@ class SelectGameViewController: UIViewController {
     }
     
     @objc func barButtonTapped() {
-        let destinationVC = SettingsViewController()
+        let destinationVC = GameSettingsViewController()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     

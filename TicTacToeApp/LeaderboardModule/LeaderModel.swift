@@ -5,13 +5,21 @@ struct LeaderModel {
 }
 
 extension LeaderModel {
-    static func getLeaders() -> [LeaderModel] {
-        
-        return [
-            LeaderModel(time: "Best time 00:20"),
-            LeaderModel(time: "Time 00:40"),
-            LeaderModel(time: "Time 00:42"),
-            LeaderModel(time: "Time 00:48")
-        ]
+    static func getLeaders(from times: [Int]) -> [LeaderModel]? {
+        if let times = StorageManager().getArray(forKey: .leaderboard) {
+            let sortedTimes = times.sorted()
+            
+            let formattedTimes = sortedTimes.map { time in
+                let minutes = time / 60
+                let seconds = time % 60
+                return String(format: "%02d:%02d", minutes, seconds)
+            }
+            
+            let leaders = formattedTimes.map { LeaderModel(time: "Time \($0)") }
+            
+            return leaders
+        } else {
+            return nil
+        }
     }
 }
