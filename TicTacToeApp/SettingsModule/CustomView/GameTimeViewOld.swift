@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
+final class GameTimeViewOld: UIView, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - Private Property
     
