@@ -25,7 +25,6 @@ class GameViewController: BaseViewController {
     private var gameField: [Field?] = .init(repeating: nil, count: 9)
     private var isSelected = true
     
-    
     //    проверка поля на свободную ячейку
     private func isSquareOccupied(in field: [Field?], forIndex index: Int ) -> Bool {
         return field.contains { $0?.fieldIndex == index }
@@ -55,30 +54,21 @@ class GameViewController: BaseViewController {
         gameView.fieldCollection.reloadData()
     }
     
-    
     private func showAlert(playerWin: Player) {
-        
         var player: String { playerWin == .first ? "You is win" : "Computer is win!" }
-        
         let alert = UIAlertController(title: "Game Over", message: player, preferredStyle: .alert)
-        
         let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
             self.newGame()
         }
-        
         alert.addAction(newGameAction)
         present(alert, animated: true, completion: nil)
     }
+    
     private func showAlert() {
-        
-        
-        
         let alert = UIAlertController(title: "Game Over", message: "Game is Draw", preferredStyle: .alert)
-        
         let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
             self.newGame()
         }
-        
         alert.addAction(newGameAction)
         present(alert, animated: true, completion: nil)
     }
@@ -181,16 +171,9 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         // проверяем свободен ли квадрат
         if isSquareOccupied(in: gameField, forIndex: indexPath.row) { return }
         
-        /*
-         для 2 игроков
-         let player: Player = isSelected ? .first : .second
-         
-         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
-         
-         isSelected.toggle()
-         */
-        
         let player: Player = .first
+        
+        gameView.updatePlayerImage(to: UIImage.CustomImage.cross)
         
         gameView.selectPlayerLabel.text = "You turn"
         
@@ -213,6 +196,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            gameView.updatePlayerImage(to: UIImage.CustomImage.nought)
             gameView.selectPlayerLabel.text = "Computer turn"
             let computerPosition = self.computerMove(gameField: self.gameField)
             self.gameField[computerPosition] = Field(player: .second, fieldIndex: computerPosition)
@@ -259,6 +243,4 @@ extension GameViewController: GameViewDelegate {
     func firstPlayer(isSelected: Bool) {
         self.isSelected = isSelected
     }
-    
-    
 }

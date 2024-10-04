@@ -78,13 +78,6 @@ final class GameView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setView()
-        
-        //        выбор игрока на поле
-        let tapGestureYou = UITapGestureRecognizer(target: self, action: #selector(tapedYouButton))
-        firstPlayerContainer.addGestureRecognizer(tapGestureYou)
-        let tapGestureTwo = UITapGestureRecognizer(target: self, action: #selector(tapedTwoButton))
-        secondPlayerContainer.addGestureRecognizer(tapGestureTwo)
-        
         setConstraints()
     }
     
@@ -120,21 +113,10 @@ final class GameView: UIView {
         fieldCollection.dataSource = delegate
     }
     
-    // MARK: - Actions
-    
-    @objc func tapedYouButton() {
-        selectPlayerLabel.text = "Your turn"
-        selectPlayerImage.image = UIImage.CustomImage.cross
-        delegate?.firstPlayer(isSelected: true)
-        UIViewFactory.tapButton(firstPlayerContainer)
-    }
-    
-    @objc func tapedTwoButton() {
-        selectPlayerLabel.text = "Player Two turn"
-        selectPlayerImage.image = UIImage.CustomImage.nought
-        delegate?.firstPlayer(isSelected: false)
-        UIViewFactory.tapButton(secondPlayerContainer)
-    }
+//    обновление картинки игрока
+    func updatePlayerImage(to image: UIImage?) {
+            selectPlayerImage.image = image
+        }
 }
 
 
