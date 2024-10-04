@@ -9,16 +9,93 @@ import UIKit
 
 class GameViewController: BaseViewController {
     
+    enum Player {
+        case first
+        case second
+    }
+    
+    struct Field {
+        let player: Player
+        let fieldIndex: Int
+        var playerLogo: String {
+            return player == .first ? "Cross" : "Nought"
+        }
+    }
+    
+    private var gameField: [Field?] = .init(repeating: nil, count: 9)
+    private var isSelected = true
+    
+    
+//    проверка поля на свободную ячейку
+    private func isSquareOccupied(in field: [Field?], forIndex index: Int ) -> Bool {
+        return field.contains { $0?.fieldIndex == index }
+    }
+    
+    
+//    проверка на выигрыш
+    private func checkWin(for player: Player?, in field: [Field?]) -> Bool {
+        let winPaterns: Set<Set<Int>> = [ [0,1,2], [3,4,5], [6,7,8],
+                                          [0,3,6], [1,4,7], [2,5,8],
+                                          [0,4,8], [2,4,6]]
+        let playerMoves = field.compactMap { $0 }.filter { $0.player
+         == player}
+        let playerPositions = Set(playerMoves.map { $0.fieldIndex })
+        for patern in winPaterns where patern.isSubset(of: playerPositions) {
+            return true
+        }
+        return false
+    }
+    
+    private func checkForDraw(in field: [Field?]) -> Bool {
+        return field.compactMap{$0}.count == gameField.count
+    }
+    
+    private func newGame() {
+        gameField = .init(repeating: nil, count: 9)
+        gameView.fieldCollection.reloadData()
+    }
+    
+    
+    private func showAlert(playerWin: Player) {
+        
+        var player: String { playerWin == .first ? "You is win" : "Computer is win!" }
+        
+        let alert = UIAlertController(title: "Game Over", message: player, preferredStyle: .alert)
+        
+        let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
+            self.newGame()
+        }
+        
+        alert.addAction(newGameAction)
+        present(alert, animated: true, completion: nil)
+    }
+    private func showAlert() {
+        
+        
+        
+        let alert = UIAlertController(title: "Game Over", message: "Game is Draw", preferredStyle: .alert)
+        
+        let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
+            self.newGame()
+        }
+        
+        alert.addAction(newGameAction)
+        present(alert, animated: true, completion: nil)
+    }
+   
+    
+//    компьютерная игра
+    private func computerMove(gameField: [Field?]) -> Int {
+        var movePosition = Int.random(in: 0..<9)
+        while isSquareOccupied(in: gameField, forIndex: movePosition) {
+            movePosition = Int.random(in: 0..<9)
+        }
+        return movePosition
+    }
     // MARK: - Properties
     
-    private let cellCount = 9
     private let gameView = GameView()
-    
-    private var field: [UIImage?] = .init(repeating: nil, count: 9)
-    private let firstPlayer = "Cross"
-    private let secondPlayer = "Nought"
-    private var selectedField = true
-    
+
     // MARK: - Life Cycle
     override func loadView() {
         view = gameView
@@ -38,33 +115,71 @@ class GameViewController: BaseViewController {
 extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cellCount
+        gameField.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as! GameCollectionViewCell
+        
+        
+        if let namePlayer = gameField[indexPath.row]?.playerLogo {
+            let imageSquare = UIImage(named: namePlayer)
+            cell.configure(image: imageSquare)
+        } else {
+            cell.configure(image: nil)
+        }
+        
         cell.backgroundColor = UIColor.CustomColors.backgroundBlue
         cell.layer.cornerRadius = 20
-        
-        let image = field[indexPath.row]
-        cell.configure(image: image)
+
         return cell
     }
     
+// MARK: - выбор ячейки по тапу
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("выбрана ячейка с номером \(indexPath.item)")
-        var image: UIImage?
-        if selectedField {
-            image = UIImage(named: firstPlayer)
-            selectedField = false
-        } else {
-            image = UIImage(named: secondPlayer)
-            selectedField = true
+        
+        // проверяем свободен ли квадрат
+        if isSquareOccupied(in: gameField, forIndex: indexPath.row) { return }
+      
+        /*
+         для 2 игроков
+        let player: Player = isSelected ? .first : .second
+        
+        gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
+        
+        isSelected.toggle()
+         */
+        
+        let player: Player = .first
+        
+        gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
+        
+        if checkWin(for: player, in: gameField) {
+            print("\(player) win")
+            showAlert(playerWin: player)
+            return
+        }
+        if checkForDraw(in: gameField) {
+            showAlert()
+            return
         }
         
-        field[indexPath.row] = image
         collectionView.reloadItems(at: [indexPath])
+
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            let computerPosition = self.computerMove(gameField: self.gameField)
+            self.gameField[computerPosition] = Field(player: .second, fieldIndex: computerPosition)
+            
+            if self.checkWin(for: .second, in: self.gameField) {
+                    print("\(Player.second) win")
+                    self.showAlert(playerWin: .second)
+                    return
+                }
+           
+            collectionView.reloadItems(at: [IndexPath(item: computerPosition, section: 0)])
+        }
     }
 }
 
@@ -96,7 +211,7 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Extensions GameViewDelegate
 extension GameViewController: GameViewDelegate {
     func firstPlayer(isSelected: Bool) {
-        selectedField = isSelected
+        self.isSelected = isSelected
     }
     
     

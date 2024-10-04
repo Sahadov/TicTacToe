@@ -66,7 +66,7 @@ final class GameView: UIView {
         return layout
     }()
     
-    private lazy var fieldCollection: UICollectionView = {
+     lazy var fieldCollection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutView)
         collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
