@@ -47,8 +47,7 @@ class LeaderboardView: UIView {
     
     // MARK: - Properties
     
-    let leaders = LeaderModel.getLeaders()
-    
+    var leaders: [LeaderModel]?
     
     //MARK: - Initialization
     override init(frame: CGRect) {
@@ -56,9 +55,8 @@ class LeaderboardView: UIView {
         setDelegates()
         setupViews()
         setConstraints()
-        if leaders.count != 0 {
-            noHistoryStackView.isHidden = true
-        }
+        
+        loadLeaderboardData()
     }
     
     required init?(coder: NSCoder) {
@@ -84,19 +82,28 @@ class LeaderboardView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    private func loadLeaderboardData() {
+        if let storage = StorageManager().getArray(forKey: .leaderboard) {
+            leaders = LeaderModel.getLeaders(from: storage)
+            noHistoryStackView.isHidden = true
+        } else {
+            noHistoryStackView.isHidden = false
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension LeaderboardView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leaders.count
+        return leaders?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "id", for: indexPath) as! LeaderCell
         
-        let model = leaders[indexPath.row]
+        guard let model = leaders?[indexPath.row] else { return UITableViewCell() }
         cell.numberLeaderLabel.text = String(indexPath.row + 1)
         cell.timeLeaderLabel.text = model.time
         return cell
