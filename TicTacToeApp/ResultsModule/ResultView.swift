@@ -1,6 +1,13 @@
 import UIKit
 
+protocol ResultViewDelegate: AnyObject {
+    func didTapAgainButton()
+    func didTapBackButton()
+}
+
 class ResultView: UIView {
+    
+    weak var delegate: ResultViewDelegate?
     
     private lazy var resultLabel: UILabel = {
         let label = UILabel()
@@ -36,6 +43,9 @@ class ResultView: UIView {
     
     private func setupViews() {
         [resultLabel, imageView, againButton, backButton].forEach { addSubview($0) }
+        
+        againButton.addTarget(self, action: #selector(didTapAgainButton), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
     }
     
     private func applyConstraints() {
@@ -58,5 +68,13 @@ class ResultView: UIView {
             backButton.trailingAnchor.constraint(equalTo: againButton.trailingAnchor),
             backButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -18),
         ])
+    }
+    
+    @objc private func didTapAgainButton() {
+        delegate?.didTapAgainButton()
+    }
+    
+    @objc private func didTapBackButton() {
+        delegate?.didTapBackButton()
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class ResultsViewController: UIViewController {
+class ResultsViewController: UIViewController, ResultViewDelegate {
     
     var gameResult: GameResult? {
         didSet {
@@ -12,6 +12,7 @@ class ResultsViewController: UIViewController {
     private lazy var resultView: ResultView = {
         let view = ResultView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
         return view
     }()
     
@@ -20,7 +21,6 @@ class ResultsViewController: UIViewController {
         view.backgroundColor = UIColor(named: "BlueBg")
         
         setupView()
-        gameResult = .draw
     }
     
     private func setupView() {
@@ -36,5 +36,15 @@ class ResultsViewController: UIViewController {
         if let result = gameResult {
             resultView.configure(result: result)
         }
+    }
+    
+    func didTapAgainButton() {
+        let gameVC = TwoPlayerGameViewController()
+        navigationController?.pushViewController(gameVC, animated: true)
+    }
+    
+    func didTapBackButton() {
+        let selectGameVC = SelectGameViewController()
+        navigationController?.pushViewController(selectGameVC, animated: true)
     }
 }

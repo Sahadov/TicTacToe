@@ -8,9 +8,9 @@ enum GameResult {
     var message: String {
         switch self {
         case .win:
-            return "Player One Win!"
+            return "Player 1 Won!"
         case .lose:
-            return "You Lose!"
+            return "Player 2 Won!"
         case .draw:
             return "Draw!"
         }
@@ -21,7 +21,7 @@ enum GameResult {
         case .win:
             return "Win"
         case .lose:
-            return "Lose"
+            return "Win"
         case .draw:
             return "Draw"
         }

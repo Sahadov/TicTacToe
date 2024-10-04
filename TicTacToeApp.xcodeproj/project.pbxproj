@@ -41,6 +41,10 @@
 		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
 		FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212B2CAC607200FB0F48 /* ResultModel.swift */; };
 		FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212D2CAC609300FB0F48 /* ResultView.swift */; };
+		FC732F702CB05E6D0003D00D /* TwoPlayerGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC732F6F2CB05E6D0003D00D /* TwoPlayerGameCollectionViewCell.swift */; };
+		FC732F722CB05E750003D00D /* TwoPlayerGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC732F712CB05E750003D00D /* TwoPlayerGameLogic.swift */; };
+		FC732F742CB05E7A0003D00D /* TwoPlayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC732F732CB05E7A0003D00D /* TwoPlayerGameView.swift */; };
+		FC732F762CB05E7E0003D00D /* TwoPlayerGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC732F752CB05E7E0003D00D /* TwoPlayerGameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +84,10 @@
 		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC22212B2CAC607200FB0F48 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		FC22212D2CAC609300FB0F48 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		FC732F6F2CB05E6D0003D00D /* TwoPlayerGameCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC732F712CB05E750003D00D /* TwoPlayerGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameLogic.swift; sourceTree = "<group>"; };
+		FC732F732CB05E7A0003D00D /* TwoPlayerGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameView.swift; sourceTree = "<group>"; };
+		FC732F752CB05E7E0003D00D /* TwoPlayerGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoPlayerGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 				11F9E9262CAD3C4C00832B7F /* GameViewController.swift */,
 				11F9E9282CAD3C7200832B7F /* GameCollectionViewCell.swift */,
 				11F9E92B2CAD3E0C00832B7F /* GameView.swift */,
+				FC732F6E2CB05E5F0003D00D /* 2PlayerGame */,
 			);
 			path = GameModule;
 			sourceTree = "<group>";
@@ -239,6 +248,17 @@
 			path = ResultsModule;
 			sourceTree = "<group>";
 		};
+		FC732F6E2CB05E5F0003D00D /* 2PlayerGame */ = {
+			isa = PBXGroup;
+			children = (
+				FC732F752CB05E7E0003D00D /* TwoPlayerGameViewController.swift */,
+				FC732F732CB05E7A0003D00D /* TwoPlayerGameView.swift */,
+				FC732F712CB05E750003D00D /* TwoPlayerGameLogic.swift */,
+				FC732F6F2CB05E6D0003D00D /* TwoPlayerGameCollectionViewCell.swift */,
+			);
+			path = 2PlayerGame;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -309,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC732F762CB05E7E0003D00D /* TwoPlayerGameViewController.swift in Sources */,
 				D14462D22CA9E7DD00896542 /* UIButton_Extension.swift in Sources */,
 				FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */,
 				D12837052CADA717004E024F /* RuleViewFactory.swift in Sources */,
@@ -319,6 +340,7 @@
 				11F9E92C2CAD3E0C00832B7F /* GameView.swift in Sources */,
 				11F9E9272CAD3C4C00832B7F /* GameViewController.swift in Sources */,
 				D18696442CA9ADA200647D14 /* AppDelegate.swift in Sources */,
+				FC732F722CB05E750003D00D /* TwoPlayerGameLogic.swift in Sources */,
 				D11DAA4B2CB0456000B32A67 /* GameTimeView.swift in Sources */,
 				11F9E9302CAD655000832B7F /* ImageExtension.swift in Sources */,
 				D18696462CA9ADA200647D14 /* SceneDelegate.swift in Sources */,
@@ -326,12 +348,14 @@
 				D1EFF6DE2CAE1004008837FC /* UIViewController_Extension.swift in Sources */,
 				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
+				FC732F742CB05E7A0003D00D /* TwoPlayerGameView.swift in Sources */,
 				D11DAA492CB0456000B32A67 /* SettingViewCell.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
 				16E05B7B2CAF07C60039604C /* LeaderboardView.swift in Sources */,
 				16E05B7C2CAF07C60039604C /* LeaderModel.swift in Sources */,
 				16E05B7D2CAF07C60039604C /* LeaderboardViewController.swift in Sources */,
 				16E05B7E2CAF07C60039604C /* LeaderCell.swift in Sources */,
+				FC732F702CB05E6D0003D00D /* TwoPlayerGameCollectionViewCell.swift in Sources */,
 				D12837032CADA717004E024F /* RuleView.swift in Sources */,
 				FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */,
 				D12837062CADA717004E024F /* RulesViewController.swift in Sources */,
