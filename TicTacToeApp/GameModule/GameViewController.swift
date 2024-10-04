@@ -26,19 +26,19 @@ class GameViewController: BaseViewController {
     private var isSelected = true
     
     
-//    проверка поля на свободную ячейку
+    //    проверка поля на свободную ячейку
     private func isSquareOccupied(in field: [Field?], forIndex index: Int ) -> Bool {
         return field.contains { $0?.fieldIndex == index }
     }
     
     
-//    проверка на выигрыш
+    //    проверка на выигрыш
     private func checkWin(for player: Player?, in field: [Field?]) -> Bool {
         let winPaterns: Set<Set<Int>> = [ [0,1,2], [3,4,5], [6,7,8],
                                           [0,3,6], [1,4,7], [2,5,8],
                                           [0,4,8], [2,4,6]]
         let playerMoves = field.compactMap { $0 }.filter { $0.player
-         == player}
+            == player}
         let playerPositions = Set(playerMoves.map { $0.fieldIndex })
         for patern in winPaterns where patern.isSubset(of: playerPositions) {
             return true
@@ -82,43 +82,43 @@ class GameViewController: BaseViewController {
         alert.addAction(newGameAction)
         present(alert, animated: true, completion: nil)
     }
-   
-//     таймер
+    
+    //     таймер
     private var timer: Timer?
-        private var totalTime = 120
-        private var secondsLeft: Int = 120 {
-            didSet {
-                gameView.timeLabel.text = formatTime(secondsLeft)
-            }
+    private var totalTime = 120
+    private var secondsLeft: Int = 120 {
+        didSet {
+            gameView.timeLabel.text = formatTime(secondsLeft)
         }
-
+    }
+    
     private func formatTime(_ seconds: Int) -> String {
-          let minutes = seconds / 60
-          let seconds = seconds % 60
-          return String(format: "%02d:%02d", minutes, seconds)
-      }
+        let minutes = seconds / 60
+        let seconds = seconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
     
     private func startTimer() {
-            secondsLeft = totalTime
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        }
+        gameView.timeLabel.isHidden = false
+        secondsLeft = totalTime
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
     
     @objc private func updateTimer() {
-           if secondsLeft > 0 {
-               secondsLeft -= 1
-           } else {
-               
-               stopTimer()
-           }
-       }
-
-        
-        private func stopTimer() {
-            timer?.invalidate()
-            timer = nil
+        if secondsLeft > 0 {
+            secondsLeft -= 1
+        } else {
+            stopTimer()
         }
-
-//    компьютерная игра
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        gameView.timeLabel.isHidden = true
+        timer = nil
+    }
+    
+    //    компьютерная игра
     private func computerMove(gameField: [Field?]) -> Int {
         var movePosition = Int.random(in: 0..<9)
         while isSquareOccupied(in: gameField, forIndex: movePosition) {
@@ -129,7 +129,7 @@ class GameViewController: BaseViewController {
     // MARK: - Properties
     
     private let gameView = GameView()
-
+    
     // MARK: - Life Cycle
     override func loadView() {
         view = gameView
@@ -166,46 +166,51 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         cell.backgroundColor = UIColor.CustomColors.backgroundBlue
         cell.layer.cornerRadius = 20
-
+        
         return cell
     }
     
-// MARK: - выбор ячейки по тапу
+    // MARK: - выбор ячейки по тапу
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        startTimer()
+        // Запускаем таймер только один раз при первом нажатии
+        if timer == nil {
+            startTimer()
+        }
         
         // проверяем свободен ли квадрат
         if isSquareOccupied(in: gameField, forIndex: indexPath.row) { return }
-      
+        
         /*
          для 2 игроков
-        let player: Player = isSelected ? .first : .second
-        
-        gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
-        
-        isSelected.toggle()
+         let player: Player = isSelected ? .first : .second
+         
+         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
+         
+         isSelected.toggle()
          */
         
         let player: Player = .first
         
         gameView.selectPlayerLabel.text = "You turn"
-       
+        
         
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
         
         if checkWin(for: player, in: gameField) {
             
             showAlert(playerWin: player)
+            stopTimer()
             return
         }
         if checkForDraw(in: gameField) {
             showAlert()
+            stopTimer()
             return
         }
         
         collectionView.reloadItems(at: [indexPath])
-
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
             gameView.selectPlayerLabel.text = "Computer turn"
@@ -213,11 +218,12 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.gameField[computerPosition] = Field(player: .second, fieldIndex: computerPosition)
             
             if self.checkWin(for: .second, in: self.gameField) {
-                    print("\(Player.second) win")
-                    self.showAlert(playerWin: .second)
-                    return
-                }
-           
+                print("\(Player.second) win")
+                self.showAlert(playerWin: .second)
+                stopTimer()
+                return
+            }
+            
             collectionView.reloadItems(at: [IndexPath(item: computerPosition, section: 0)])
         }
     }
