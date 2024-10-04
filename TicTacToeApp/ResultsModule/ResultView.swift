@@ -1,6 +1,7 @@
 import UIKit
 
 protocol ResultViewDelegate: AnyObject {
+    func didTapAgainButton()
     func didTapBackButton()
 }
 
@@ -70,7 +71,7 @@ class ResultView: UIView {
     }
     
     @objc private func didTapAgainButton() {
-        
+        delegate?.didTapAgainButton()
     }
     
     @objc private func didTapBackButton() {

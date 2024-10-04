@@ -19,11 +19,11 @@ final class TwoPlayerGameView: UIView {
     
     private let firstPlayerContainer = UIView.playerContainer()
     private let playerImage1 = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
-    private let playerLabel1 = LabelFactory.playerName("You")
+    private let playerLabel1 = LabelFactory.playerName("Player 1")
     
-    private let timeLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "1:59"
+        label.text = "02:00"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,7 +31,7 @@ final class TwoPlayerGameView: UIView {
     
     private let secondPlayerContainer = UIView.playerContainer()
     private let playerImage2 = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
-    private let playerLabel2 = LabelFactory.playerName("Player Two")
+    private let playerLabel2 = LabelFactory.playerName("Player 2")
     
     
     private let selectedPlayerView: UIView = {
@@ -40,9 +40,9 @@ final class TwoPlayerGameView: UIView {
         return view
     }()
     
-    private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
+    var selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     
-    private let selectPlayerLabel = LabelFactory.playerName("You turn")
+    private let selectPlayerLabel = LabelFactory.playerName("Your turn")
     
     
     private let containerView: UIView = {

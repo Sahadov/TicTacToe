@@ -15,6 +15,14 @@ class TwoPlayerGameViewController: BaseViewController {
     private let gameView = TwoPlayerGameView()
     private let gameLogic = TwoPlayerGameLogic()
     
+    private var timer: Timer?
+    private var totalTime = 120
+    private var secondsLeft: Int = 120 {
+        didSet {
+            gameView.timeLabel.text = formatTime(secondsLeft)
+        }
+    }
+    
     // MARK: - Life Cycle
     override func loadView() {
         view = gameView
@@ -26,6 +34,8 @@ class TwoPlayerGameViewController: BaseViewController {
         view.backgroundColor = UIColor.CustomColors.backgroundBlue
         gameView.setDelegate(self)
         gameView.fieldCollection.register(TwoPlayerGameCollectionViewCell.self, forCellWithReuseIdentifier: TwoPlayerGameCollectionViewCell.identifier)
+        
+        startTimer()
     }
     
     // MARK: - Game Logic
@@ -36,10 +46,17 @@ class TwoPlayerGameViewController: BaseViewController {
             showResults(.draw)
         } else {
             gameView.fieldCollection.reloadData()
+            updateSelectedPlayerImage()
         }
+    }
+    
+    private func updateSelectedPlayerImage() {
+        let currentPlayer = gameLogic.getCurrentPlayer()
+        gameView.selectPlayerImage.image = currentPlayer == .cross ? UIImage.CustomImage.cross : UIImage.CustomImage.nought
     }
 
     private func showWinner(_ winner: Player) {
+        stopTimer()
         switch winner {
         case .cross:
             showResults(.win)
@@ -52,6 +69,32 @@ class TwoPlayerGameViewController: BaseViewController {
         let destinationVC = ResultsViewController()
         destinationVC.gameResult = result
         navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    // MARK: - Timer Functions
+    private func startTimer() {
+        secondsLeft = totalTime // Установить оставшееся время
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    @objc private func updateTimer() {
+        if secondsLeft > 0 {
+            secondsLeft -= 1
+        } else {
+            showResults(.draw)
+            stopTimer()
+        }
+    }
+    
+    private func formatTime(_ seconds: Int) -> String {
+        let minutes = seconds / 60
+        let seconds = seconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

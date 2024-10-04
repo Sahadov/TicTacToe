@@ -34,6 +34,10 @@ class TwoPlayerGameLogic {
             return UIImage.CustomImage.nought
         }
     }
+    
+    func getCurrentPlayer() -> Player {
+        return currentPlayer
+    }
 
     private func checkForWinner() -> Player? {
         let winningCombinations: [[Int]] = [

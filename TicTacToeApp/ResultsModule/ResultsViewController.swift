@@ -38,6 +38,11 @@ class ResultsViewController: UIViewController, ResultViewDelegate {
         }
     }
     
+    func didTapAgainButton() {
+        let gameVC = TwoPlayerGameViewController()
+        navigationController?.pushViewController(gameVC, animated: true)
+    }
+    
     func didTapBackButton() {
         let selectGameVC = SelectGameViewController()
         navigationController?.pushViewController(selectGameVC, animated: true)
