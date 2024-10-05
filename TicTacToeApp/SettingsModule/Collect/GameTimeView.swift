@@ -9,27 +9,28 @@
 
 import UIKit
 
-class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
+final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: - Private Property
     
     private let customView: UIView = {
         let customView = UIView()
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.layer.cornerRadius = 24
-        customView.backgroundColor = .systemGray5
+        customView.backgroundColor = UIColor.CustomColors.backgroundBlue
         return customView
     }()
     
-    //  Переключатель (switch) для Game Time
-    let gameTimeSwitch: UISwitch = {
+    private let gameTimeSwitch: UISwitch = {
         let toggle = UISwitch()
         toggle.isOn = true
+        toggle.onTintColor = UIColor.CustomColors.blue
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
     
-    let gameTimeLabel: UILabel = {
+    private let gameTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "Game Time"
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
@@ -38,35 +39,33 @@ class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     }()
     
     // Таблица для отображения вариантов времени
-    let durationTableView: UITableView = {
+    private let durationTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.isScrollEnabled = false // Отключаем прокрутку
+        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.layer.cornerRadius = 15
-        tableView.backgroundColor = UIColor.systemGray6
+        tableView.backgroundColor = UIColor.CustomColors.backgroundBlue
         return tableView
     }()
     
-    // Варианты продолжительности времени
-    let durations = ["30 min", "60 min", "120 min"]
+    private let duration = ["30 min", "60 min", "120 min"]
     
     // Выбранный вариант
     var selectedIndexPath: IndexPath?
     
-    // Инициализация представления
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         
-        // Устанавливаем делегата и источник данных для таблицы
         durationTableView.delegate = self
         durationTableView.dataSource = self
         durationTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         
         addSubview(customView)
- 
+        
         addSubview(durationTableView)
         
         setupLayout()
@@ -78,15 +77,18 @@ class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
+    
+    //MARK: - SetupLayout
+    
+    private func setupLayout() {
         [ gameTimeLabel, gameTimeSwitch].forEach { subView in
             customView.addSubview(subView)
         }
     }
     
-    // Настройка ограничений (constraints)
+    //MARK: - Layout
+    
     private func setupConstraints() {
-        
         
         NSLayoutConstraint.activate([
             
@@ -103,29 +105,26 @@ class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
             durationTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 20),
             durationTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             durationTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            durationTableView.heightAnchor.constraint(equalToConstant: 150) // Фиксированная высота для трех строк
+            durationTableView.heightAnchor.constraint(equalToConstant: 150)
             
-
         ])
-        
     }
     
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return durations.count
+        return duration.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = durations[indexPath.row]
+        cell.textLabel?.text = duration[indexPath.row]
         
-        // Стилизация выбранной ячейки
         if indexPath == selectedIndexPath {
-            cell.textLabel?.textColor = .white
-            cell.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
+            cell.textLabel?.textColor = UIColor.CustomColors.black
+            cell.backgroundColor = UIColor.CustomColors.purple.withAlphaComponent(0.5)
         } else {
-            cell.textLabel?.textColor = .black
+            cell.textLabel?.textColor = UIColor.CustomColors.black
             cell.backgroundColor = .clear
         }
         
@@ -136,6 +135,17 @@ class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
+        
+        let selectedDuration = duration[indexPath.row]
+        
+        if gameTimeSwitch.isOn {
+            let storageManager = StorageManager()
+            storageManager.set(selectedDuration, forKey: .duration)
+            print("Save storageManager \(selectedDuration)")
+        } else {
+            print("Toggle is Off")
+        }
+        
         tableView.reloadData()
     }
 }
