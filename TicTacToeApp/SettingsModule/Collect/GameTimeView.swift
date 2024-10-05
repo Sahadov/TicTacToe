@@ -65,15 +65,16 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         return label
     }()
 
-    let musicSwitch: UISwitch = {
+    var musicSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = false
+        //toggle.isOn = false
         toggle.onTintColor = UIColor.CustomColors.blue
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
     private let duration = ["30 min", "60 min", "120 min"]
+    private let storageManager = StorageManager()
     
     // Выбранный вариант
     var selectedIndexPath: IndexPath?
@@ -116,6 +117,13 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func setupSwitch() {
+        if let musicOn = storageManager.getBool(forKey: .musicOn) {
+            musicSwitch.isOn = musicOn
+        } else {
+            musicSwitch.isOn = false
+            storageManager.set(musicSwitch.isOn, forKey: .musicOn)
+        }
+        
         musicSwitch.addTarget(self, action: #selector(musicChanged), for: .touchUpInside)
     }
     
@@ -127,6 +135,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         } else {
             MusicManager.shared.stopBackgroundMusic()
         }
+        storageManager.set(sender.isOn, forKey: .musicOn)
     }
     
     //MARK: - Layout
