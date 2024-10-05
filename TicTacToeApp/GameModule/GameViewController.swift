@@ -130,10 +130,10 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let player: Player = .cross
         
-        //gameView.updatePlayerImage(to: UIImage.CustomImage.cross)
-        gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .crossImageName)!))
+        // Обновляем изображение для следующего игрока
+        gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .noughtImageName)!))
         
-        gameView.selectPlayerLabel.text = "You turn"
+        gameView.selectPlayerLabel.text = "Computer turn"
         
         
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
@@ -155,11 +155,12 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            //gameView.updatePlayerImage(to: UIImage.CustomImage.nought)
-            gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .noughtImageName)!))
-            gameView.selectPlayerLabel.text = "Computer turn"
+            
+            gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .crossImageName)!))
+            gameView.selectPlayerLabel.text = "Your turn"
             let computerPosition = self.gameLogic.computerMove(gameField: self.gameField)
             self.gameField[computerPosition] = Field(player: .nought, fieldIndex: computerPosition)
+            
             
             if self.gameLogic.checkWin(for: .nought, in: self.gameField) {
                 showResults(GameResult.lose)

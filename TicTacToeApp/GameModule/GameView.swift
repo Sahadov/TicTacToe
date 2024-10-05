@@ -51,7 +51,7 @@ final class GameView: UIView {
     
     private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     
-    let selectPlayerLabel = LabelFactory.playerName("You turn")
+    let selectPlayerLabel = LabelFactory.playerName("Your turn")
     
     // игровое поле
     
