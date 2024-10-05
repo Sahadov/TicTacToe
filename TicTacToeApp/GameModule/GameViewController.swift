@@ -57,8 +57,10 @@ class GameViewController: BaseViewController {
     }
     
     private func startTimer() {
+        guard let durationTime = storageManager.getInt(forKey: .duration) else { return }
         gameView.timeLabel.isHidden = false
-        secondsLeft = totalTime
+        //secondsLeft = totalTime
+        secondsLeft = durationTime
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
@@ -119,7 +121,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         // Запускаем таймер если выбран в настройках
         guard let timerStatus = storageManager.getBool(forKey: .gameTimeSwitch) else { return }
         
-        if timerStatus {
+        if timerStatus && timer == nil {
             startTimer()
         }
         
