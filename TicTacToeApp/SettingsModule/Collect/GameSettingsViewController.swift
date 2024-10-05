@@ -8,16 +8,17 @@
 
 import UIKit
 
-class GameSettingsViewController: BaseViewController {
+final class GameSettingsViewController: BaseViewController {
     
+    //MARK: - Private Property
     private let gameTimeView = GameTimeView()
     
-    var selectedIndexPath: IndexPath? // Для отслеживания выбранной ячейки
+    var selectedIndexPath: IndexPath? //  выбранная ячейка
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 160, height: 150) // Пример размера ячеек
+        layout.itemSize = CGSize(width: 160, height: 150)
         layout.minimumLineSpacing = 26
         layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 80, right: 30)
         
@@ -46,7 +47,6 @@ class GameSettingsViewController: BaseViewController {
     ]
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +59,7 @@ class GameSettingsViewController: BaseViewController {
 }
 
 
+//MARK: - Layout
 private extension GameSettingsViewController {
     
     func setupView() {
@@ -72,11 +73,10 @@ private extension GameSettingsViewController {
         gameTimeView.layer.shadowOpacity = 0.2
         gameTimeView.layer.shadowRadius = 16
         gameTimeView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        
     }
     
     
-    private func setupConstraints() {
+    func setupConstraints() {
         gameTimeView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -97,25 +97,22 @@ private extension GameSettingsViewController {
 
 
 
-
-extension GameSettingsViewController: UICollectionViewDelegate {
+//MARK: - UICollectionViewDelegate
+ extension GameSettingsViewController: UICollectionViewDelegate {
     
-    // Вызывается при нажатии на ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Проверяем, была ли выбрана другая ячейка ранее
         if let previousSelectedIndexPath = selectedIndexPath {
-            // Сбрасываем состояние старой выбранной ячейки
             selectedIndexPath = indexPath
             collectionView.reloadItems(at: [previousSelectedIndexPath, indexPath])
         } else {
-            // Если до этого не было выбранной ячейки
             selectedIndexPath = indexPath
             collectionView.reloadItems(at: [indexPath])
         }
     }
-    
 }
 
+
+//MARK: - UICollectionViewDataSource
 extension GameSettingsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -124,21 +121,20 @@ extension GameSettingsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingViewCell.reusedId, for: indexPath) as! SettingViewCell
+
         
         // Присваиваем уникальные изображения для каждой ячейки
-        let image1 = images[indexPath.item]
-        let image2 = images[(indexPath.item + 1)]
+        let image1 = images[indexPath.item % images.count]
+        let image2 = images[(indexPath.item + 1) % images.count]
         
-        cell.imageView1.image = image1
-        cell.imageView2.image = image2
+        cell.crossImageName.image = image1
+        cell.noughtImageName.image = image2
         
         
         // Если ячейка выбрана, меняем текст кнопки на "Picked"
         let isPicked = selectedIndexPath == indexPath
         cell.setPicked(isPicked)
-        
-        cell.customButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
-        
+//        
         return cell
     }
     
@@ -146,12 +142,6 @@ extension GameSettingsViewController: UICollectionViewDataSource {
         super.viewWillAppear(animated)
         collectionView.reloadData()
     }
-    
-    @objc func didTap() {
-        print("ksjdnskdnc")
-    }
-    
-    
 }
 
 
