@@ -10,7 +10,7 @@ import UIKit
 extension UIImage {
     struct CustomImage {
         static let burger = UIImage(named: "Burger")?.withAccessibilityIdentifier("Burger")
-        static let cross = UIImage(named: "Cross")?.withAccessibilityIdentifier("cross")
+        static let cross = UIImage(named: "Cross")?.withAccessibilityIdentifier("Cross")
         static let crossWithBg = UIImage(named: "CrossWithBg")?.withAccessibilityIdentifier("CrossWithBg")
         static let crossYelow = UIImage(named: "CrossYelow")?.withAccessibilityIdentifier("CrossYelow")
         static let frenchFries = UIImage(named: "FrenchFries")?.withAccessibilityIdentifier("FrenchFries")

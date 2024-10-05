@@ -14,11 +14,19 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         onboardingView.setupNavigationBar(for: self)
         setupButton()
+        setupDefaultSettings()
     }
     
     //MARK: - Methods
     private func setupButton() {
         onboardingView.letsPlayButton.addTarget(self, action: #selector(letsPlayButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupDefaultSettings() {
+        let storageManager = StorageManager()
+        storageManager.set(false, forKey: .gameTimeSwitch)
+        storageManager.set("Cross", forKey: .crossImageName)
+        storageManager.set("Nought", forKey: .noughtImageName)
     }
     
     @objc func barButtonTapped(sender: UIBarButtonItem) {
