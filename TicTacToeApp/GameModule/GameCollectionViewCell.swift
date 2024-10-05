@@ -32,8 +32,6 @@ class GameCollectionViewCell: UICollectionViewCell {
     }
     
     
-    // MARK: -
-    
     public func configure(image: UIImage?) {
         gameImage.image = image
     }
@@ -43,8 +41,10 @@ class GameCollectionViewCell: UICollectionViewCell {
 extension GameCollectionViewCell {
     func setConstraints() {
         NSLayoutConstraint.activate([
-            gameImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            gameImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            gameImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            gameImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            gameImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            gameImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5)
         ])
     }
 }

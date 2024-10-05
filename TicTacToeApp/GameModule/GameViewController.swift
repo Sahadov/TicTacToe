@@ -9,68 +9,30 @@ import UIKit
 
 class GameViewController: BaseViewController {
     
-    enum Player {
-        case first
-        case second
-    }
+    // MARK: - Properties
     
-    struct Field {
-        let player: Player
-        let fieldIndex: Int
-        var playerLogo: String {
-            return player == .first ? "Cross" : "Nought"
-        }
-    }
-    
+    private let gameView = GameView()
+    private let resultView = ResultView()
     private var gameField: [Field?] = .init(repeating: nil, count: 9)
     private var isSelected = true
+    private let gameLogic = PCGameLogic()
     
-    //    проверка поля на свободную ячейку
-    private func isSquareOccupied(in field: [Field?], forIndex index: Int ) -> Bool {
-        return field.contains { $0?.fieldIndex == index }
+    // MARK: - Life Cycle
+    override func loadView() {
+        view = gameView
     }
     
-    
-    //    проверка на выигрыш
-    private func checkWin(for player: Player?, in field: [Field?]) -> Bool {
-        let winPaterns: Set<Set<Int>> = [ [0,1,2], [3,4,5], [6,7,8],
-                                          [0,3,6], [1,4,7], [2,5,8],
-                                          [0,4,8], [2,4,6]]
-        let playerMoves = field.compactMap { $0 }.filter { $0.player
-            == player}
-        let playerPositions = Set(playerMoves.map { $0.fieldIndex })
-        for patern in winPaterns where patern.isSubset(of: playerPositions) {
-            return true
-        }
-        return false
-    }
-    
-    private func checkForDraw(in field: [Field?]) -> Bool {
-        return field.compactMap{$0}.count == gameField.count
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.CustomColors.backgroundBlue
+        gameView.setDelegate(self)
+        gameView.delegate = self
     }
     
     private func newGame() {
         gameField = .init(repeating: nil, count: 9)
         gameView.fieldCollection.reloadData()
-    }
-    
-    private func showAlert(playerWin: Player) {
-        var player: String { playerWin == .first ? "You is win" : "Computer is win!" }
-        let alert = UIAlertController(title: "Game Over", message: player, preferredStyle: .alert)
-        let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
-            self.newGame()
-        }
-        alert.addAction(newGameAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showAlert() {
-        let alert = UIAlertController(title: "Game Over", message: "Game is Draw", preferredStyle: .alert)
-        let newGameAction = UIAlertAction(title: "New Game", style: .default) {_ in
-            self.newGame()
-        }
-        alert.addAction(newGameAction)
-        present(alert, animated: true, completion: nil)
     }
     
     //     таймер
@@ -108,29 +70,10 @@ class GameViewController: BaseViewController {
         timer = nil
     }
     
-    //    компьютерная игра
-    private func computerMove(gameField: [Field?]) -> Int {
-        var movePosition = Int.random(in: 0..<9)
-        while isSquareOccupied(in: gameField, forIndex: movePosition) {
-            movePosition = Int.random(in: 0..<9)
-        }
-        return movePosition
-    }
-    // MARK: - Properties
-    
-    private let gameView = GameView()
-    
-    // MARK: - Life Cycle
-    override func loadView() {
-        view = gameView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.CustomColors.backgroundBlue
-        gameView.setDelegate(self)
-        gameView.delegate = self
+    private func showResults(_ result: GameResult) {
+        let destinationVC = ResultsViewController()
+        destinationVC.gameResult = result
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 
@@ -169,9 +112,9 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         // проверяем свободен ли квадрат
-        if isSquareOccupied(in: gameField, forIndex: indexPath.row) { return }
+        if gameLogic.isSquareOccupied(in: gameField, forIndex: indexPath.row) { return }
         
-        let player: Player = .first
+        let player: Player = .cross
         
         gameView.updatePlayerImage(to: UIImage.CustomImage.cross)
         
@@ -180,14 +123,15 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
         
-        if checkWin(for: player, in: gameField) {
+        if gameLogic.checkWin(for: player, in: gameField) {
             
-            showAlert(playerWin: player)
+            showResults(GameResult.win)
+            //            showAlert(playerWin: player)
             stopTimer()
             return
         }
-        if checkForDraw(in: gameField) {
-            showAlert()
+        if gameLogic.checkForDraw(in: gameField) {
+            showResults(GameResult.draw)
             stopTimer()
             return
         }
@@ -198,12 +142,11 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
             gameView.updatePlayerImage(to: UIImage.CustomImage.nought)
             gameView.selectPlayerLabel.text = "Computer turn"
-            let computerPosition = self.computerMove(gameField: self.gameField)
-            self.gameField[computerPosition] = Field(player: .second, fieldIndex: computerPosition)
+            let computerPosition = self.gameLogic.computerMove(gameField: self.gameField)
+            self.gameField[computerPosition] = Field(player: .nought, fieldIndex: computerPosition)
             
-            if self.checkWin(for: .second, in: self.gameField) {
-                print("\(Player.second) win")
-                self.showAlert(playerWin: .second)
+            if self.gameLogic.checkWin(for: .nought, in: self.gameField) {
+                showResults(GameResult.lose)
                 stopTimer()
                 return
             }

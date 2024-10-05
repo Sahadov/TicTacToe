@@ -14,6 +14,7 @@ protocol GameViewDelegate: AnyObject {
 final class GameView: UIView {
     
     weak var delegate: GameViewDelegate?
+    private let storageManager = StorageManager()
     
     // MARK: - UI
     
@@ -84,6 +85,9 @@ final class GameView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setView()
+        
+        setPlayersImage()
+        
         setConstraints()
     }
     
@@ -117,6 +121,13 @@ final class GameView: UIView {
     func updatePlayerImage(to image: UIImage?) {
             selectPlayerImage.image = image
         }
+    
+    private func setPlayersImage() {
+        guard let crossImage = storageManager.getString(forKey: .crossImageName) else { return }
+        guard let noughtImage = storageManager.getString(forKey: .noughtImageName) else { return }
+        playerImage1.image = UIImage(named: crossImage)
+        playerImage2.image = UIImage(named: noughtImage)
+    }
 }
 
 
