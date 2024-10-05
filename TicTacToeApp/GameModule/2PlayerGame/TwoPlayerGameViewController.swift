@@ -36,6 +36,7 @@ class TwoPlayerGameViewController: BaseViewController {
         gameView.setDelegate(self)
         gameView.fieldCollection.register(TwoPlayerGameCollectionViewCell.self, forCellWithReuseIdentifier: TwoPlayerGameCollectionViewCell.identifier)
         
+        
         // отображаем время
         gameView.timeLabel.text = formatTime(secondsLeft)
         

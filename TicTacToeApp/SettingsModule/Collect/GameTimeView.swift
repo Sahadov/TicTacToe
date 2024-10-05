@@ -73,7 +73,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         return toggle
     }()
     
-    private let duration = ["30 min", "60 min", "120 min"]
+    private let duration = ["30 sec", "60 sec", "120 sec"]
     private let storageManager = StorageManager()
     
     // Выбранный вариант
@@ -119,7 +119,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     //MARK: - Private Methods
     
     private func setupSwitchTime() {
-      
+        
         let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
         gameTimeSwitch.isOn = timeOn
         storageManager.set(timeOn, forKey: .gameTimeSwitch)
@@ -219,12 +219,19 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         let selectedDuration = duration[indexPath.row]
         
-        if storageManager.getBool(forKey: .gameTimeSwitch) == true {
-            storageManager.set(selectedDuration, forKey: .duration)
-            print("Save \(selectedDuration)")
-        } else {
-            print("Toggle is Off")
+        let durationValue: Int
+        switch selectedDuration {
+        case "30 sec":
+            durationValue = 30
+        case "60 sec":
+            durationValue = 60
+        case "120 sec":
+            durationValue = 120
+        default:
+            durationValue = 120
         }
+        
+        storageManager.set(durationValue, forKey: .duration)
         
         tableView.reloadData()
     }
