@@ -29,6 +29,9 @@ class GameViewController: BaseViewController {
         view.backgroundColor = UIColor.CustomColors.backgroundBlue
         gameView.setDelegate(self)
         gameView.delegate = self
+        
+        
+
     }
     
     private func newGame() {
@@ -36,7 +39,9 @@ class GameViewController: BaseViewController {
         gameView.fieldCollection.reloadData()
     }
     
-    //     таймер
+    
+    
+    // таймер
     private var timer: Timer?
     private var totalTime = 120
     private var secondsLeft: Int = 120 {
@@ -111,8 +116,10 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // MARK: - выбор ячейки по тапу
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        // Запускаем таймер только один раз при первом нажатии
-        if timer == nil {
+        // Запускаем таймер если выбран в настройках
+        guard let timerStatus = storageManager.getBool(forKey: .gameTimeSwitch) else { return }
+        
+        if timerStatus {
             startTimer()
         }
         

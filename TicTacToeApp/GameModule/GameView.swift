@@ -127,6 +127,7 @@ final class GameView: UIView {
     private func setPlayersImage() {
         guard let crossImage = storageManager.getString(forKey: .crossImageName) else { return }
         guard let noughtImage = storageManager.getString(forKey: .noughtImageName) else { return }
+        selectPlayerImage.image = UIImage(named: crossImage)
         playerImage1.image = UIImage(named: crossImage)
         playerImage2.image = UIImage(named: noughtImage)
     }
