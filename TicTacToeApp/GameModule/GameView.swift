@@ -16,6 +16,7 @@ final class GameView: UIView {
     weak var delegate: GameViewDelegate?
     private let storageManager = StorageManager()
     
+    
     // MARK: - UI
     
     private let headerView: UIView = {
@@ -80,15 +81,15 @@ final class GameView: UIView {
         super.init(frame: frame)
         setView()
         setConstraints()
+        setPlayersImage()
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setView()
-        
-        setPlayersImage()
-        
         setConstraints()
+        
     }
     
     // MARK: - Settings View
@@ -116,6 +117,7 @@ final class GameView: UIView {
         fieldCollection.delegate = delegate
         fieldCollection.dataSource = delegate
     }
+    
     
 //    обновление картинки игрока
     func updatePlayerImage(to image: UIImage?) {

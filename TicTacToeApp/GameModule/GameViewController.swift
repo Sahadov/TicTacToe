@@ -92,11 +92,15 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         if let namePlayer = gameField[indexPath.row]?.playerLogo {
-            let imageSquare = UIImage(named: namePlayer)
-            cell.configure(image: imageSquare)
-        } else {
-            cell.configure(image: nil)
+                    let keyName = "\(namePlayer.lowercased())ImageName"
+                    let currentImage = storageManager.getString(forKey: StorageManager.Keys(rawValue: keyName)!)
+                    let imageSquare = UIImage(named: currentImage!)
+                    cell.configure(image: imageSquare)
+                } else {
+                    cell.configure(image: nil)
         }
+        
+        
         
         cell.backgroundColor = UIColor.CustomColors.backgroundBlue
         cell.layer.cornerRadius = 20
@@ -117,7 +121,8 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let player: Player = .cross
         
-        gameView.updatePlayerImage(to: UIImage.CustomImage.cross)
+        //gameView.updatePlayerImage(to: UIImage.CustomImage.cross)
+        gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .crossImageName)!))
         
         gameView.selectPlayerLabel.text = "You turn"
         
@@ -141,7 +146,8 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            gameView.updatePlayerImage(to: UIImage.CustomImage.nought)
+            //gameView.updatePlayerImage(to: UIImage.CustomImage.nought)
+            gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .noughtImageName)!))
             gameView.selectPlayerLabel.text = "Computer turn"
             let computerPosition = self.gameLogic.computerMove(gameField: self.gameField)
             self.gameField[computerPosition] = Field(player: .nought, fieldIndex: computerPosition)
