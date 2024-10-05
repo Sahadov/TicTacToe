@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol GameViewDelegate: AnyObject {
+    func firstPlayer(isSelected: Bool)
+}
+
 final class GameView: UIView {
+    
+    weak var delegate: GameViewDelegate?
+    private let storageManager = StorageManager()
     
     // MARK: - UI
     
@@ -21,9 +28,9 @@ final class GameView: UIView {
     private let playerImage1 = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     private let playerLabel1 = LabelFactory.playerName("You")
     
-    private let timeLabel: UILabel = {
+     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "1:59"
+//        label.text = "1:59"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,9 +48,9 @@ final class GameView: UIView {
         return view
     }()
     
-    private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
+    private let selectPlayerImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
     
-    private let selectPlayerLabel = LabelFactory.playerName("You turn")
+    let selectPlayerLabel = LabelFactory.playerName("You turn")
     
     // игровое поле
     
@@ -60,7 +67,7 @@ final class GameView: UIView {
         return layout
     }()
     
-    private lazy var fieldCollection: UICollectionView = {
+     lazy var fieldCollection: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutView)
         collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +85,9 @@ final class GameView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setView()
+        
+        setPlayersImage()
+        
         setConstraints()
     }
     
@@ -107,6 +117,17 @@ final class GameView: UIView {
         fieldCollection.dataSource = delegate
     }
     
+//    обновление картинки игрока
+    func updatePlayerImage(to image: UIImage?) {
+            selectPlayerImage.image = image
+        }
+    
+    private func setPlayersImage() {
+        guard let crossImage = storageManager.getString(forKey: .crossImageName) else { return }
+        guard let noughtImage = storageManager.getString(forKey: .noughtImageName) else { return }
+        playerImage1.image = UIImage(named: crossImage)
+        playerImage2.image = UIImage(named: noughtImage)
+    }
 }
 
 
@@ -143,7 +164,7 @@ extension GameView {
             playerLabel2.topAnchor.constraint(equalTo: playerImage2.bottomAnchor, constant: 10),
             playerLabel2.centerXAnchor.constraint(equalTo: secondPlayerContainer.centerXAnchor),
             
-//            центральная часть
+            //            центральная часть
             selectedPlayerView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             selectedPlayerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 84),
             selectedPlayerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -84),
@@ -154,7 +175,7 @@ extension GameView {
             selectPlayerLabel.leadingAnchor.constraint(equalTo: selectPlayerImage.trailingAnchor, constant: 5),
             
             
-//            игра
+            //            игра
             containerView.topAnchor.constraint(equalTo: selectedPlayerView.bottomAnchor, constant: 30),
             containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
