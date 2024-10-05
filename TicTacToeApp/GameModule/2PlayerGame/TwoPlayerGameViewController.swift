@@ -40,6 +40,7 @@ class TwoPlayerGameViewController: BaseViewController {
         gameView.timeLabel.text = formatTime(secondsLeft)
         
         checkGameTimerSwitcher()
+        startTimer()
     }
     
     // MARK: - Game Logic

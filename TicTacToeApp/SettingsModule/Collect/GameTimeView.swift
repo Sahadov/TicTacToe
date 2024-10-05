@@ -56,7 +56,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         customView.backgroundColor = UIColor.CustomColors.backgroundBlue
         return customView
     }()
-
+    
     let musicLabel: UILabel = {
         let label = UILabel()
         label.text = "Music"
@@ -64,7 +64,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     var musicSwitch: UISwitch = {
         let toggle = UISwitch()
         //toggle.isOn = false
@@ -88,7 +88,6 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         durationTableView.dataSource = self
         durationTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        
         addSubview(customView)
         
         addSubview(durationTableView)
@@ -97,6 +96,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         setupLayout()
         setupConstraints()
+        setupSwitchTime()
         setupSwitch()
         
     }
@@ -116,20 +116,36 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         [musicLabel, musicSwitch].forEach { musicView.addSubview($0) }
     }
     
-    private func setupSwitch() {
-        if let musicOn = storageManager.getBool(forKey: .musicOn) {
-            musicSwitch.isOn = musicOn
+    //MARK: - Private Methods
+    
+    private func setupSwitchTime() {
+        if let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) {
+            gameTimeSwitch.isOn = timeOn
         } else {
-            musicSwitch.isOn = false
-            storageManager.set(musicSwitch.isOn, forKey: .musicOn)
+            gameTimeSwitch.isOn = false
+            storageManager.set(gameTimeSwitch.isOn, forKey: .gameTimeSwitch)
         }
+        
+        gameTimeSwitch.addTarget(self, action: #selector(timeChanged), for: .touchUpInside)
+    }
+    
+    private func setupSwitch() {
+        let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
+        gameTimeSwitch.isOn = timeOn
         
         musicSwitch.addTarget(self, action: #selector(musicChanged), for: .touchUpInside)
     }
     
     //MARK: - Methods
     
-    @objc private  func musicChanged(_ sender: UISwitch) {
+    @objc private func timeChanged(_ sender: UISwitch) {
+        let isOn = sender.isOn
+        storageManager.set(isOn, forKey: .gameTimeSwitch)
+        print(isOn ? "Toggle is On" : "Toggle is Off")
+    }
+    
+    
+    @objc private func musicChanged(_ sender: UISwitch) {
         if sender.isOn {
             MusicManager.shared.startBackgroundMusic()
         } else {
@@ -163,7 +179,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
             musicView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             musicView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             musicView.heightAnchor.constraint(equalToConstant: 56),
-
+            
             musicLabel.topAnchor.constraint(equalTo: musicView.topAnchor, constant: 16),
             musicLabel.leadingAnchor.constraint(equalTo: musicView.leadingAnchor, constant: 16),
             musicSwitch.centerYAnchor.constraint(equalTo: musicLabel.centerYAnchor),
@@ -199,15 +215,13 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         let selectedDuration = duration[indexPath.row]
         
-        if gameTimeSwitch.isOn {
-            let storageManager = StorageManager()
-            storageManager.set(true, forKey: .gameTimeSwitch)
+        if storageManager.getBool(forKey: .gameTimeSwitch) == true {
             storageManager.set(selectedDuration, forKey: .duration)
-            print("Save storageManager \(selectedDuration)")
+            print("Save \(selectedDuration)")
         } else {
             print("Toggle is Off")
         }
-        
+
         tableView.reloadData()
     }
 }
