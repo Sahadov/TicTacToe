@@ -36,6 +36,9 @@ class TwoPlayerGameViewController: BaseViewController {
         gameView.setDelegate(self)
         gameView.fieldCollection.register(TwoPlayerGameCollectionViewCell.self, forCellWithReuseIdentifier: TwoPlayerGameCollectionViewCell.identifier)
         
+        // отображаем время
+        gameView.timeLabel.text = formatTime(secondsLeft)
+        
         checkGameTimerSwitcher()
     }
     
@@ -86,6 +89,7 @@ class TwoPlayerGameViewController: BaseViewController {
         if timerOn {
             gameView.timeLabel.isHidden = false
             totalTime = duration
+            
             startTimer()
         } else {
             gameView.timeLabel.isHidden = true
@@ -95,6 +99,9 @@ class TwoPlayerGameViewController: BaseViewController {
     private func startTimer() {
         secondsLeft = totalTime
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        print("Таймер запущен с общим временем: \(totalTime)") //не выводит принт
+
     }
     
     private func stopTimer() {

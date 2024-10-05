@@ -121,21 +121,20 @@ extension GameSettingsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingViewCell.reusedId, for: indexPath) as! SettingViewCell
+
         
         // Присваиваем уникальные изображения для каждой ячейки
-        let image1 = images[indexPath.item]
-        let image2 = images[(indexPath.item + 1)]
+        let image1 = images[indexPath.item % images.count]
+        let image2 = images[(indexPath.item + 1) % images.count]
         
-        cell.crossImage.image = image1
-        cell.noughtImage.image = image2
+        cell.crossImageName.image = image1
+        cell.noughtImageName.image = image2
         
         
         // Если ячейка выбрана, меняем текст кнопки на "Picked"
         let isPicked = selectedIndexPath == indexPath
         cell.setPicked(isPicked)
-        
-//        cell.customButton.addTarget(self, action: #selector(didTap), for: .touchUpInside)
-        
+//        
         return cell
     }
     
@@ -143,10 +142,6 @@ extension GameSettingsViewController: UICollectionViewDataSource {
         super.viewWillAppear(animated)
         collectionView.reloadData()
     }
-//    
-//    @objc func didTap() {
-//        print("Button tap")
-//    }
 }
 
 

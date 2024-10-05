@@ -49,7 +49,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         return tableView
     }()
     
-    private let durations = ["30 min", "60 min", "120 min"]
+    private let duration = ["30 min", "60 min", "120 min"]
     
     // Выбранный вариант
     var selectedIndexPath: IndexPath?
@@ -113,12 +113,12 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return durations.count
+        return duration.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = durations[indexPath.row]
+        cell.textLabel?.text = duration[indexPath.row]
         
         if indexPath == selectedIndexPath {
             cell.textLabel?.textColor = UIColor.CustomColors.black
@@ -136,7 +136,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         
-        let selectedDuration = durations[indexPath.row]
+        let selectedDuration = duration[indexPath.row]
         
         if gameTimeSwitch.isOn {
             let storageManager = StorageManager()

@@ -25,8 +25,8 @@ final class SettingViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    let crossImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
-    let noughtImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
+    let crossImageName = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
+    let noughtImageName = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
     
     
     private let customButton: UIButton = {
@@ -72,12 +72,12 @@ final class SettingViewCell: UICollectionViewCell {
         //Экшн для кнопки
         customButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
-        [imageStack, customButton, crossImage, noughtImage].forEach { contentView.addSubview($0) }
+        [imageStack, customButton, crossImageName, noughtImageName].forEach { contentView.addSubview($0) }
     }
     
     private func setupStack() {
-        imageStack.addArrangedSubview(crossImage)
-        imageStack.addArrangedSubview(noughtImage)
+        imageStack.addArrangedSubview(crossImageName)
+        imageStack.addArrangedSubview(noughtImageName)
     }
     
     
@@ -90,12 +90,12 @@ final class SettingViewCell: UICollectionViewCell {
         collectionView.delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
         
         
-        let crossImage = crossImage.image
-        let noughtImage = noughtImage.image
+        let crossImageName = crossImageName.image
+        let noughtImageName = noughtImageName.image
         
         
-        if let image1Name = crossImage?.accessibilityIdentifier,
-           let image2Name = noughtImage?.accessibilityIdentifier {
+        if let image1Name = crossImageName?.accessibilityIdentifier,
+           let image2Name = noughtImageName?.accessibilityIdentifier {
             
             //передача в StorageManager
             let storageManager = StorageManager()
