@@ -23,7 +23,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     private let gameTimeSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = true
+        toggle.isOn = false
         toggle.onTintColor = UIColor.CustomColors.blue
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
@@ -140,6 +140,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         if gameTimeSwitch.isOn {
             let storageManager = StorageManager()
+            storageManager.set(true, forKey: .gameTimeSwitch)
             storageManager.set(selectedDuration, forKey: .duration)
             print("Save storageManager \(selectedDuration)")
         } else {
