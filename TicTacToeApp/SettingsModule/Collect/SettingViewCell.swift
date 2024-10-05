@@ -9,10 +9,12 @@
 import UIKit
 
 
-class SettingViewCell: UICollectionViewCell {
-    
+final class SettingViewCell: UICollectionViewCell {
     
     static let reusedId = "SettingViewCell"
+    
+    
+    //MARK: - Private Property
     
     private let imageStack: UIStackView = {
         let stackView = UIStackView()
@@ -23,23 +25,11 @@ class SettingViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    var imageView1: UIImageView = {
-        let imageView = UIImageView(image: UIImage.CustomImage.cross)
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    let crossImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.cross)
+    let noughtImage = UIImageViewFactory.setPlayerImage(UIImage.CustomImage.nought)
     
-    var imageView2: UIImageView = {
-        let imageView = UIImageView(image: UIImage.CustomImage.nought)
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
-  
-    
-    var customButton: UIButton = {
+    private let customButton: UIButton = {
         let button = UIButton()
         button.setTitle("Choose", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -52,18 +42,18 @@ class SettingViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        
         setupView()
         
         setupConstraints()
         setupStack()
-        
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Private Methods
     
     private func setupView() {
         // Настройка внешнего вида ячейки
@@ -82,39 +72,59 @@ class SettingViewCell: UICollectionViewCell {
         //Экшн для кнопки
         customButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
-        [imageStack, customButton, imageView1, imageView2].forEach { contentView.addSubview($0) }
+        [imageStack, customButton, crossImage, noughtImage].forEach { contentView.addSubview($0) }
     }
     
     private func setupStack() {
-        // Добавляем иконки в stackView
-        imageStack.addArrangedSubview(imageView1)
-        imageStack.addArrangedSubview(imageView2)
+        imageStack.addArrangedSubview(crossImage)
+        imageStack.addArrangedSubview(noughtImage)
     }
     
-   
+    
     @objc func didTapButton() {
         print("Button tapped!")
         
-        guard let collectionView = superview as? UICollectionView else { return }
-            if let indexPath = collectionView.indexPath(for: self) {
-                collectionView.delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
-            }
+        guard let collectionView = superview as? UICollectionView,
+              let indexPath = collectionView.indexPath(for: self) else { return }
+        
+        collectionView.delegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
+        
+        
+        let crossImage = crossImage.image
+        let noughtImage = noughtImage.image
+        
+        
+        if let image1Name = crossImage?.accessibilityIdentifier,
+           let image2Name = noughtImage?.accessibilityIdentifier {
+            
+            //передача в StorageManager
+            let storageManager = StorageManager()
+            storageManager.set(image1Name, forKey: .crossImageName)
+            storageManager.set(image2Name, forKey: .noughtImageName)
+            
+            print("Saved image: \(image1Name), and: \(image2Name)")
+        } else {
+            print("Failed to save")
+        }
     }
     
     
     
     //переключаем цвет и текст в кнопке
     func setPicked(_ isPicked: Bool) {
-            if isPicked {
-                customButton.setTitle("Picked", for: .normal)
-                customButton.setTitleColor(UIColor.CustomColors.lightBlue, for: .normal)
-                customButton.backgroundColor = UIColor.CustomColors.blue
-            } else {
-                customButton.setTitle("Choose", for: .normal)
-                customButton.setTitleColor(UIColor.CustomColors.black, for: .normal)
-                customButton.backgroundColor = UIColor.CustomColors.backgroundBlue
-            }
+        if isPicked {
+            customButton.setTitle("Picked", for: .normal)
+            customButton.setTitleColor(UIColor.CustomColors.lightBlue, for: .normal)
+            customButton.backgroundColor = UIColor.CustomColors.blue
+        } else {
+            customButton.setTitle("Choose", for: .normal)
+            customButton.setTitleColor(UIColor.CustomColors.black, for: .normal)
+            customButton.backgroundColor = UIColor.CustomColors.backgroundBlue
         }
+    }
+    
+    
+    //MARK: - Layout
     
     private func setupConstraints() {
         
