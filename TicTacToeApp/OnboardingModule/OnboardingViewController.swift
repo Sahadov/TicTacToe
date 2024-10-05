@@ -23,10 +23,12 @@ class OnboardingViewController: UIViewController {
     }
     
     private func setupDefaultSettings() {
-        let storageManager = StorageManager()
-        storageManager.set(false, forKey: .gameTimeSwitch)
-        storageManager.set("Cross", forKey: .crossImageName)
-        storageManager.set("Nought", forKey: .noughtImageName)
+        if UserDefaults.standard.dictionaryRepresentation().isEmpty {
+            let storageManager = StorageManager()
+            storageManager.set(false, forKey: .gameTimeSwitch)
+            storageManager.set("Cross", forKey: .crossImageName)
+            storageManager.set("Nought", forKey: .noughtImageName)
+        }
     }
     
     @objc func barButtonTapped(sender: UIBarButtonItem) {
