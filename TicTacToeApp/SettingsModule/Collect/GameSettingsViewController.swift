@@ -84,7 +84,7 @@ private extension GameSettingsViewController {
             gameTimeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             gameTimeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             gameTimeView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            gameTimeView.heightAnchor.constraint(equalToConstant: 280),
+            gameTimeView.heightAnchor.constraint(equalToConstant: 344),
             
             collectionView.topAnchor.constraint(equalTo: gameTimeView.bottomAnchor, constant: 26),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
