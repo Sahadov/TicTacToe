@@ -40,6 +40,8 @@
 		D1EFF6E02CAE115E008837FC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFF6DF2CAE115E008837FC /* BaseViewController.swift */; };
 		D1F25DAD2CA9D26F00DD3FF8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */; };
 		FA184AF72CADAA690026315F /* SelectGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA184AF62CADAA690026315F /* SelectGameView.swift */; };
+		FA63363F2CB16AEA00079D41 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63363E2CB16AE400079D41 /* MusicManager.swift */; };
+		FA6336422CB1711F00079D41 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA6336412CB1711F00079D41 /* backgroundMusic.mp3 */; };
 		FAA1C9DA2CAD77A100E94550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */; };
 		FC22212C2CAC607200FB0F48 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212B2CAC607200FB0F48 /* ResultModel.swift */; };
 		FC22212E2CAC609300FB0F48 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC22212D2CAC609300FB0F48 /* ResultView.swift */; };
@@ -85,6 +87,8 @@
 		D1EFF6DF2CAE115E008837FC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D1F25DAC2CA9D26F00DD3FF8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		FA184AF62CADAA690026315F /* SelectGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameView.swift; sourceTree = "<group>"; };
+		FA63363E2CB16AE400079D41 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
+		FA6336412CB1711F00079D41 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		FAA1C9D92CAD77A100E94550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		FC22212B2CAC607200FB0F48 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
 		FC22212D2CAC609300FB0F48 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 		D113EEDB2CB05B770065E5D5 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FA63363E2CB16AE400079D41 /* MusicManager.swift */,
 				D113EEDC2CB05B770065E5D5 /* StorageManager.swift */,
 			);
 			path = Manager;
@@ -161,6 +166,7 @@
 		D14462CF2CA9E71200896542 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA6336402CB170FB00079D41 /* Music */,
 				D186964C2CA9ADA700647D14 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -233,6 +239,14 @@
 				FA184AF62CADAA690026315F /* SelectGameView.swift */,
 			);
 			path = SelectGameModule;
+			sourceTree = "<group>";
+		};
+		FA6336402CB170FB00079D41 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				FA6336412CB1711F00079D41 /* backgroundMusic.mp3 */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 		FAA1C9D82CAD776D00E94550 /* OnboardingModule */ = {
@@ -325,6 +339,7 @@
 			files = (
 				D18696502CA9ADA700647D14 /* LaunchScreen.storyboard in Resources */,
 				D186964D2CA9ADA700647D14 /* Assets.xcassets in Resources */,
+				FA6336422CB1711F00079D41 /* backgroundMusic.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +372,7 @@
 				D12837042CADA717004E024F /* RuleModel.swift in Sources */,
 				11F9E92E2CAD5FC000832B7F /* ColorExtension.swift in Sources */,
 				FC732F742CB05E7A0003D00D /* TwoPlayerGameView.swift in Sources */,
+				FA63363F2CB16AEA00079D41 /* MusicManager.swift in Sources */,
 				D11DAA492CB0456000B32A67 /* SettingViewCell.swift in Sources */,
 				11F9E9292CAD3C7200832B7F /* GameCollectionViewCell.swift in Sources */,
 				16E05B7B2CAF07C60039604C /* LeaderboardView.swift in Sources */,

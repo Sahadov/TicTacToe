@@ -49,7 +49,32 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         return tableView
     }()
     
+    private let musicView: UIView = {
+        let customView = UIView()
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        customView.layer.cornerRadius = 24
+        customView.backgroundColor = UIColor.CustomColors.backgroundBlue
+        return customView
+    }()
+
+    let musicLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Music"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    var musicSwitch: UISwitch = {
+        let toggle = UISwitch()
+        //toggle.isOn = false
+        toggle.onTintColor = UIColor.CustomColors.blue
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        return toggle
+    }()
+    
     private let duration = ["30 min", "60 min", "120 min"]
+    private let storageManager = StorageManager()
     
     // Выбранный вариант
     var selectedIndexPath: IndexPath?
@@ -68,8 +93,11 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         addSubview(durationTableView)
         
+        addSubview(musicView)
+        
         setupLayout()
         setupConstraints()
+        setupSwitch()
         
     }
     
@@ -84,6 +112,30 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         [ gameTimeLabel, gameTimeSwitch].forEach { subView in
             customView.addSubview(subView)
         }
+        
+        [musicLabel, musicSwitch].forEach { musicView.addSubview($0) }
+    }
+    
+    private func setupSwitch() {
+        if let musicOn = storageManager.getBool(forKey: .musicOn) {
+            musicSwitch.isOn = musicOn
+        } else {
+            musicSwitch.isOn = false
+            storageManager.set(musicSwitch.isOn, forKey: .musicOn)
+        }
+        
+        musicSwitch.addTarget(self, action: #selector(musicChanged), for: .touchUpInside)
+    }
+    
+    //MARK: - Methods
+    
+    @objc private  func musicChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            MusicManager.shared.startBackgroundMusic()
+        } else {
+            MusicManager.shared.stopBackgroundMusic()
+        }
+        storageManager.set(sender.isOn, forKey: .musicOn)
     }
     
     //MARK: - Layout
@@ -105,8 +157,17 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
             durationTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 20),
             durationTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             durationTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            durationTableView.heightAnchor.constraint(equalToConstant: 150)
+            durationTableView.heightAnchor.constraint(equalToConstant: 150),
             
+            musicView.topAnchor.constraint(equalTo: durationTableView.bottomAnchor, constant: 20),
+            musicView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            musicView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            musicView.heightAnchor.constraint(equalToConstant: 56),
+
+            musicLabel.topAnchor.constraint(equalTo: musicView.topAnchor, constant: 16),
+            musicLabel.leadingAnchor.constraint(equalTo: musicView.leadingAnchor, constant: 16),
+            musicSwitch.centerYAnchor.constraint(equalTo: musicLabel.centerYAnchor),
+            musicSwitch.trailingAnchor.constraint(equalTo: musicView.trailingAnchor, constant: -10)
         ])
     }
     

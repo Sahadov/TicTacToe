@@ -20,5 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: startVC)
         window?.makeKeyAndVisible()
     }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+        MusicManager.shared.pauseBackgroundMusic()
+    }
+
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        MusicManager.shared.resumeBackgroundMusic()
+    }
 }
 

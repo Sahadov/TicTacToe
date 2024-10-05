@@ -16,6 +16,7 @@ final class StorageManager {
         case crossImageName
         case noughtImageName
         case leaderboard
+        case musicOn
     }
 
     private let userDefaults = UserDefaults.standard
