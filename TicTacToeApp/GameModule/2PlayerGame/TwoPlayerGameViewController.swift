@@ -36,10 +36,12 @@ class TwoPlayerGameViewController: BaseViewController {
         gameView.setDelegate(self)
         gameView.fieldCollection.register(TwoPlayerGameCollectionViewCell.self, forCellWithReuseIdentifier: TwoPlayerGameCollectionViewCell.identifier)
         
+        
         // отображаем время
         gameView.timeLabel.text = formatTime(secondsLeft)
         
         checkGameTimerSwitcher()
+        startTimer()
     }
     
     // MARK: - Game Logic
@@ -86,8 +88,10 @@ class TwoPlayerGameViewController: BaseViewController {
     private func checkGameTimerSwitcher() {
         guard let timerOn = storageManager.getBool(forKey: .gameTimeSwitch) else { return }
         guard let duration = storageManager.getInt(forKey: .duration) else { return }
+        
         if timerOn {
             gameView.timeLabel.isHidden = false
+            
             totalTime = duration
             
             startTimer()
