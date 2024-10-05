@@ -16,6 +16,7 @@ class GameViewController: BaseViewController {
     private var gameField: [Field?] = .init(repeating: nil, count: 9)
     private var isSelected = true
     private let gameLogic = PCGameLogic()
+    private let storageManager = StorageManager()
     
     // MARK: - Life Cycle
     override func loadView() {
@@ -124,9 +125,9 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
         
         if gameLogic.checkWin(for: player, in: gameField) {
-            
             showResults(GameResult.win)
-            //            showAlert(playerWin: player)
+            let timePassed = totalTime - secondsLeft
+            storageManager.set(timePassed, forKey: .leaderboard)
             stopTimer()
             return
         }
@@ -147,6 +148,8 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             if self.gameLogic.checkWin(for: .nought, in: self.gameField) {
                 showResults(GameResult.lose)
+                let timePassed = totalTime - secondsLeft
+                storageManager.set(timePassed, forKey: .leaderboard)
                 stopTimer()
                 return
             }
