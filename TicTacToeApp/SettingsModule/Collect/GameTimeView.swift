@@ -23,7 +23,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     private let gameTimeSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = false
+        //toggle.isOn = false
         toggle.onTintColor = UIColor.CustomColors.blue
         toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
@@ -97,7 +97,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         setupLayout()
         setupConstraints()
         setupSwitchTime()
-        setupSwitch()
+        setupSwitchMusic()
         
     }
     
@@ -119,22 +119,26 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
     //MARK: - Private Methods
     
     private func setupSwitchTime() {
-        if let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) {
-            gameTimeSwitch.isOn = timeOn
-        } else {
-            gameTimeSwitch.isOn = false
-            storageManager.set(gameTimeSwitch.isOn, forKey: .gameTimeSwitch)
-        }
+      
+        let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
+        gameTimeSwitch.isOn = timeOn
+        storageManager.set(timeOn, forKey: .gameTimeSwitch)
         
         gameTimeSwitch.addTarget(self, action: #selector(timeChanged), for: .touchUpInside)
     }
     
-    private func setupSwitch() {
-        let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
-        gameTimeSwitch.isOn = timeOn
+    
+    private func setupSwitchMusic() {
+        if let musicOn = storageManager.getBool(forKey: .musicOn) {
+            musicSwitch.isOn = musicOn
+        } else {
+            musicSwitch.isOn = false
+            storageManager.set(musicSwitch.isOn, forKey: .musicOn)
+        }
         
         musicSwitch.addTarget(self, action: #selector(musicChanged), for: .touchUpInside)
     }
+    
     
     //MARK: - Methods
     
@@ -221,7 +225,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         } else {
             print("Toggle is Off")
         }
-
+        
         tableView.reloadData()
     }
 }

@@ -87,8 +87,10 @@ class TwoPlayerGameViewController: BaseViewController {
     private func checkGameTimerSwitcher() {
         guard let timerOn = storageManager.getBool(forKey: .gameTimeSwitch) else { return }
         guard let duration = storageManager.getInt(forKey: .duration) else { return }
+        
         if timerOn {
             gameView.timeLabel.isHidden = false
+            
             totalTime = duration
             
             startTimer()
