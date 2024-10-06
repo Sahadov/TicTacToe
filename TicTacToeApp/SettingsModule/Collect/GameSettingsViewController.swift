@@ -12,6 +12,7 @@ final class GameSettingsViewController: BaseViewController {
     
     //MARK: - Private Property
     private let gameTimeView = GameTimeView()
+    let storageManager = StorageManager()
     
     var selectedIndexPath: IndexPath? //  выбранная ячейка
     
@@ -51,6 +52,10 @@ final class GameSettingsViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.CustomColors.backgroundBlue
+        
+        if let savedIndex = storageManager.getSelectedCellIndex(forKey: .selectedCellIndex) {
+            selectedIndexPath = IndexPath(item: savedIndex, section: 0)
+        }
         
         setupView()
         setupConstraints()
@@ -104,10 +109,14 @@ private extension GameSettingsViewController {
         if let previousSelectedIndexPath = selectedIndexPath {
             selectedIndexPath = indexPath
             collectionView.reloadItems(at: [previousSelectedIndexPath, indexPath])
+           
         } else {
             selectedIndexPath = indexPath
             collectionView.reloadItems(at: [indexPath])
         }
+        
+        storageManager.set(indexPath.item, forKey: .selectedCellIndex)
+        
     }
 }
 
@@ -134,7 +143,7 @@ extension GameSettingsViewController: UICollectionViewDataSource {
         // Если ячейка выбрана, меняем текст кнопки на "Picked"
         let isPicked = selectedIndexPath == indexPath
         cell.setPicked(isPicked)
-//        
+        
         return cell
     }
     

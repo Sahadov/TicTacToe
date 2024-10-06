@@ -36,12 +36,10 @@ class TwoPlayerGameViewController: BaseViewController {
         gameView.setDelegate(self)
         gameView.fieldCollection.register(TwoPlayerGameCollectionViewCell.self, forCellWithReuseIdentifier: TwoPlayerGameCollectionViewCell.identifier)
         
-        
         // отображаем время
         gameView.timeLabel.text = formatTime(secondsLeft)
         
         checkGameTimerSwitcher()
-        startTimer()
     }
     
     // MARK: - Game Logic
@@ -81,6 +79,7 @@ class TwoPlayerGameViewController: BaseViewController {
     private func showResults(_ result: GameResult) {
         let destinationVC = ResultsViewController()
         destinationVC.gameResult = result
+        stopTimer()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -104,13 +103,14 @@ class TwoPlayerGameViewController: BaseViewController {
         secondsLeft = totalTime
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-        print("Таймер запущен с общим временем: \(totalTime)") //не выводит принт
+        print("Таймер запущен с общим временем: \(totalTime)")
 
     }
     
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
+        
     }
     
     @objc private func updateTimer() {
@@ -120,6 +120,7 @@ class TwoPlayerGameViewController: BaseViewController {
             showResults(.draw)
             stopTimer()
         }
+       
     }
     
     private func formatTime(_ seconds: Int) -> String {
