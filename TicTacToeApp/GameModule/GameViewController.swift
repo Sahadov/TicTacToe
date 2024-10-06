@@ -161,7 +161,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 timePassed = totalTime
             }
             
-            if timePassed >= 3 {
+            if timePassed > 0 {
                 storageManager.set(timePassed, forKey: .leaderboard)
             }
             stopTimer()
@@ -184,7 +184,9 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if self.gameLogic.checkWin(for: .nought, in: self.gameField) {
                 showResults(GameResult.lose)
                 let timePassed = totalTime - secondsLeft
-                storageManager.set(timePassed, forKey: .leaderboard)
+                if timePassed > 0 {
+                    storageManager.set(timePassed, forKey: .leaderboard)
+                }
                 stopTimer()
                 return
             }
