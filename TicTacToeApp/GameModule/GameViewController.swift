@@ -151,6 +151,12 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
         
+        if gameLogic.checkForDraw(in: gameField) {
+            showResults(GameResult.draw)
+            stopTimer()
+            return
+        }
+        
         if gameLogic.checkWin(for: player, in: gameField) {
             showResults(GameResult.win)
             
@@ -167,11 +173,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
             stopTimer()
             return
         }
-        if gameLogic.checkForDraw(in: gameField) {
-            showResults(GameResult.draw)
-            stopTimer()
-            return
-        }
+        
         
         collectionView.reloadItems(at: [indexPath])
         
