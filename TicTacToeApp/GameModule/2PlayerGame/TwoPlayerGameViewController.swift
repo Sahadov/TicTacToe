@@ -165,21 +165,21 @@ extension TwoPlayerGameViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewFrame = collectionView.frame
-        let totalSpacing: CGFloat = 20.0 * 2 + 20.0 * 2 // 20px по краям и 20px между ячейками
+        let totalSpacing: CGFloat = 20.0 * 2 + 20.0 * 2
         let itemWidth = (collectionViewFrame.width - totalSpacing) / 3
-        return CGSize(width: itemWidth, height: itemWidth) // высота равна ширине
+        return CGSize(width: itemWidth, height: itemWidth)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0 // отступы между строками
+        return 20.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0 // отступы между ячейками
+        return 20.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20) // отступы от краев коллекции
+        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
 }
 

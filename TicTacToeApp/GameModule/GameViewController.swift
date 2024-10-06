@@ -127,7 +127,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(image: nil)
         }
         
-        cell.backgroundColor = UIColor.CustomColors.backgroundBlue
+        cell.backgroundColor = UIColor.CustomColors.lightBlue
         cell.layer.cornerRadius = 20
         
         return cell
@@ -199,23 +199,22 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension GameViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewFrame: CGRect = collectionView.frame
-        var measuredWidth = collectionViewFrame.width
-        measuredWidth = (measuredWidth/3) - (20.0/3)
-        let measuredHeight = collectionView.frame.width/3
-        return CGSize(width: measuredWidth, height: measuredHeight)
+        let collectionViewFrame = collectionView.frame
+        let totalSpacing: CGFloat = 20.0 * 2 + 20.0 * 2
+        let itemWidth = (collectionViewFrame.width - totalSpacing) / 3
+        return CGSize(width: itemWidth, height: itemWidth)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10.0
+        return 20.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        10.0
+        return 20.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
 }
 
