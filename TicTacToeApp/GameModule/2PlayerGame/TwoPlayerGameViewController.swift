@@ -79,6 +79,7 @@ class TwoPlayerGameViewController: BaseViewController {
     private func showResults(_ result: GameResult) {
         let destinationVC = ResultsViewController()
         destinationVC.gameResult = result
+        stopTimer()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     

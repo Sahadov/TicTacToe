@@ -13,6 +13,8 @@ final class SettingViewCell: UICollectionViewCell {
     
     static let reusedId = "SettingViewCell"
     
+    let storageManager = StorageManager()
+    
     
     //MARK: - Private Property
     

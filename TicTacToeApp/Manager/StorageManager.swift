@@ -13,6 +13,7 @@ final class StorageManager {
     public enum Keys: String {
         case gameTimeSwitch
         case duration
+        case selectedCellIndex
         case crossImageName
         case noughtImageName
         case leaderboard
@@ -57,6 +58,10 @@ extension StorageManager: StorageManagerProtocol {
     func getArray(forKey key: Keys) -> [Int]? {
         return restore(forKey: key.rawValue) as? [Int]
     }
+    
+    func getSelectedCellIndex(forKey key: Keys) -> Int? {
+        return restore(forKey: key.rawValue) as? Int
+    }
 
     func getBool(forKey key: Keys) -> Bool? {
         restore(forKey: key.rawValue) as? Bool
@@ -66,3 +71,4 @@ extension StorageManager: StorageManagerProtocol {
         userDefaults.removeObject(forKey: key.rawValue)
     }
 }
+

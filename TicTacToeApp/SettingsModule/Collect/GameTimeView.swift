@@ -114,11 +114,36 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         }
         
         [musicLabel, musicSwitch].forEach { musicView.addSubview($0) }
+        
+        restoreSavedDuration()
+
     }
     
     //MARK: - Private Methods
     
+    private func restoreSavedDuration() {
+        if let savedDuration = storageManager.getInt(forKey: .duration) {
+            let durationString: String
+            switch savedDuration {
+            case 30:
+                durationString = "30 sec"
+            case 60:
+                durationString = "60 sec"
+            case 120:
+                durationString = "120 sec"
+            default:
+                durationString = "120 sec"
+            }
+            
+            if let index = duration.firstIndex(of: durationString) {
+                selectedIndexPath = IndexPath(row: index, section: 0)
+            }
+        }
+        durationTableView.reloadData()
+    }
+    
     private func setupSwitchTime() {
+        
         
         let timeOn = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
         gameTimeSwitch.isOn = timeOn
@@ -204,6 +229,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         if indexPath == selectedIndexPath {
             cell.textLabel?.textColor = UIColor.CustomColors.black
             cell.backgroundColor = UIColor.CustomColors.purple.withAlphaComponent(0.5)
+           
         } else {
             cell.textLabel?.textColor = UIColor.CustomColors.black
             cell.backgroundColor = .clear
