@@ -1,5 +1,6 @@
 # Крестики-нолики | Tic Tac Toe
 This project is an iOS application that implements the classic Tic-Tac-Toe game. The application provides two game modes: a game against the computer and a game for two players on the same device.
+</br>
 Данный проект представляет собой iOS-приложение, реализующее классическую игру "Крестики-нолики" (Tic-Tac-Toe). Приложение предоставляет два режима игры: игра против компьютера и игра для двоих игроков на одном устройстве.
 
 ## Demo | Демо
