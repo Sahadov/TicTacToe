@@ -18,7 +18,18 @@ class GameViewController: BaseViewController {
     private let gameLogic = PCGameLogic()
     private let storageManager = StorageManager()
     
+    private var gameTime: Bool = false
+    private var duration = 0
+    private var timer: Timer?
+    private var totalTime = 0
+    private var secondsLeft: Int = 0 {
+        didSet {
+            gameView.timeLabel.text = formatTime(secondsLeft)
+        }
+    }
+    
     // MARK: - Life Cycle
+    
     override func loadView() {
         view = gameView
     }
@@ -30,25 +41,32 @@ class GameViewController: BaseViewController {
         gameView.setDelegate(self)
         gameView.delegate = self
         
+        // Устанавливаем значения gameTime и duration из хранилища
+        //если нет в хранилище, то по умолчанию false
+        gameTime = storageManager.getBool(forKey: .gameTimeSwitch) ?? false
+        //если нет в хранилище, то по 60 секунд
+        duration = storageManager.getInt(forKey: .duration) ?? 60
         
-
+        // Начало новой игры
+        newGame()
     }
     
     private func newGame() {
         gameField = .init(repeating: nil, count: 9)
         gameView.fieldCollection.reloadData()
-    }
-    
-    
-    
-    // таймер
-    private var timer: Timer?
-    private var totalTime = 0
-    private var secondsLeft: Int = 0 {
-        didSet {
-            gameView.timeLabel.text = formatTime(secondsLeft)
+        
+        // Сбрасываем таймер
+        stopTimer()
+        if gameTime {
+            secondsLeft = duration
+            totalTime = duration
+        } else {
+            secondsLeft = 0
+            totalTime = 0
         }
     }
+    
+    // MARK: - Timer
     
     private func formatTime(_ seconds: Int) -> String {
         let minutes = seconds / 60
@@ -57,19 +75,24 @@ class GameViewController: BaseViewController {
     }
     
     private func startTimer() {
-        guard let durationTime = storageManager.getInt(forKey: .duration) else { return }
         gameView.timeLabel.isHidden = false
-        //secondsLeft = totalTime
-        totalTime = durationTime
-        secondsLeft = durationTime
+        
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     @objc private func updateTimer() {
-        if secondsLeft > 0 {
-            secondsLeft -= 1
+        if gameTime {
+            // Отсчет времени вниз
+            if secondsLeft > 0 {
+                secondsLeft -= 1
+            } else {
+                stopTimer()
+                showResults(GameResult.lose)
+            }
         } else {
-            stopTimer()
+            // Отсчет времени вверх
+            totalTime += 1
+            secondsLeft = totalTime
         }
     }
     
@@ -86,8 +109,6 @@ class GameViewController: BaseViewController {
     }
 }
 
-// MARK: - Extensions CollectionView Delegate and DataSource
-
 extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,20 +116,16 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifier, for: indexPath) as! GameCollectionViewCell
         
-        
         if let namePlayer = gameField[indexPath.row]?.playerLogo {
-                    let keyName = "\(namePlayer.lowercased())ImageName"
-                    let currentImage = storageManager.getString(forKey: StorageManager.Keys(rawValue: keyName)!)
-                    let imageSquare = UIImage(named: currentImage!)
-                    cell.configure(image: imageSquare)
-                } else {
-                    cell.configure(image: nil)
+            let keyName = "\(namePlayer.lowercased())ImageName"
+            let currentImage = storageManager.getString(forKey: StorageManager.Keys(rawValue: keyName)!)
+            let imageSquare = UIImage(named: currentImage!)
+            cell.configure(image: imageSquare)
+        } else {
+            cell.configure(image: nil)
         }
-        
-        
         
         cell.backgroundColor = UIColor.CustomColors.backgroundBlue
         cell.layer.cornerRadius = 20
@@ -118,11 +135,8 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // MARK: - выбор ячейки по тапу
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         // Запускаем таймер если выбран в настройках
-        guard let timerStatus = storageManager.getBool(forKey: .gameTimeSwitch) else { return }
-        
-        if timerStatus && timer == nil {
+        if timer == nil {
             startTimer()
         }
         
@@ -132,17 +146,21 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let player: Player = .cross
         
         // Обновляем изображение для следующего игрока
-
         gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .noughtImageName)!))
-        
         gameView.selectPlayerLabel.text = "Computer turn"
-        
         
         gameField[indexPath.row] = Field(player: player, fieldIndex: indexPath.row)
         
         if gameLogic.checkWin(for: player, in: gameField) {
             showResults(GameResult.win)
-            let timePassed = totalTime - secondsLeft
+            
+            var timePassed = 0
+            if gameTime {
+                timePassed = totalTime - secondsLeft
+            } else {
+                timePassed = totalTime
+            }
+            
             if timePassed > 0 {
                 storageManager.set(timePassed, forKey: .leaderboard)
             }
@@ -157,14 +175,11 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         collectionView.reloadItems(at: [indexPath])
         
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            
             gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .crossImageName)!))
             gameView.selectPlayerLabel.text = "Your turn"
             let computerPosition = self.gameLogic.computerMove(gameField: self.gameField)
             self.gameField[computerPosition] = Field(player: .nought, fieldIndex: computerPosition)
-            
             
             if self.gameLogic.checkWin(for: .nought, in: self.gameField) {
                 showResults(GameResult.lose)
