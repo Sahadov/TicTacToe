@@ -13,7 +13,6 @@ https://github.com/user-attachments/assets/8b9197a1-11d5-4510-9859-15cc78fab18e
 - UIKit
 - UserDefaults
 - AVFAudio
-- 
 
 ## Usage | Использование
 1. Clone the project via XCode, Terminal or any other method | Клонируйте проект с помощью XCode, терминала или любым другим способом
@@ -27,8 +26,8 @@ Team Leader: [Dmitry](https://github.com/Sahadov)
 </br>
 
 Team members: 
-1. https://github.com/muradkv
-2. https://github.com/Julia4723
-3. https://github.com/Bokhulenkov
-4. https://github.com/bakgeldia
-5. https://github.com/IgorKlevzhits
+1. [Murad](https://github.com/muradkv)
+2. [Julia](https://github.com/Julia4723)
+3. [Alexander](https://github.com/Bokhulenkov)
+4. [Bakgeldi](https://github.com/bakgeldia)
+5. [Igor](https://github.com/IgorKlevzhits)
