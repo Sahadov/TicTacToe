@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/8b9197a1-11d5-4510-9859-15cc78fab18e
 ## Usage | Использование
 1. Clone the project via XCode, Terminal or any other method | Клонируйте проект с помощью XCode, терминала или любым другим способом
 2. While cloning choose "main" branch | При клонировании выберите ветку "main"
-3. Run on IPhone Simulator with IOS 15+ | Запустить симулятора на iPhone с IOS 15+
+3. Run on IPhone Simulator with IOS 15+ | Запустите на симуляторе iPhone с IOS 15+
 
 
 
