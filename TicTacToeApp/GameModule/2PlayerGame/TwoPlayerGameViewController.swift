@@ -66,11 +66,11 @@ class TwoPlayerGameViewController: BaseViewController {
         stopTimer()
         switch winner {
         case .cross:
-            showResults(.win)
+            showResults(.player1)
             let timePassed = totalTime - secondsLeft
             storageManager.set(timePassed, forKey: .leaderboard)
         case .nought:
-            showResults(.lose)
+            showResults(.player2)
             let timePassed = totalTime - secondsLeft
             storageManager.set(timePassed, forKey: .leaderboard)
         }

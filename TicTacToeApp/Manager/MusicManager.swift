@@ -5,6 +5,7 @@ class MusicManager {
     static let shared = MusicManager()
     
     private var audioPlayer: AVAudioPlayer?
+    private let storage = StorageManager()
     
     private init() {}
     
