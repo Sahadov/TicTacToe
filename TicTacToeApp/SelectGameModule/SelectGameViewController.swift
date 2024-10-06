@@ -4,6 +4,7 @@ class SelectGameViewController: UIViewController {
     
     //MARK: - Properties
     let selectGameView = SelectGameView()
+    let storage = StorageManager()
 
     //MARK: - Life cycle
     override func loadView() {
@@ -26,7 +27,7 @@ class SelectGameViewController: UIViewController {
     }
     
     @objc func barButtonTapped() {
-        let destinationVC = SettingsViewController()
+        let destinationVC = GameSettingsViewController()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
     
@@ -38,8 +39,10 @@ class SelectGameViewController: UIViewController {
         switch title {
         case "Single Player":
             destinationVC = GameViewController()
+            storage.set("Single Player", forKey: .gameMode)
         case "Two Players":
-            destinationVC = GameViewController()
+            destinationVC = TwoPlayerGameViewController()
+            storage.set("Two Players", forKey: .gameMode)
         case "Leaderboard":
             destinationVC = LeaderboardViewController()
         default:

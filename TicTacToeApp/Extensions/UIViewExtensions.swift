@@ -31,3 +31,16 @@ extension UIView {
         return view
     }
 }
+
+final class UIViewFactory {
+    static func tapButton(_ buttonView: UIView) {
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+            buttonView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.1) {
+                buttonView.transform = CGAffineTransform.identity
+            }
+        })
+    }
+}

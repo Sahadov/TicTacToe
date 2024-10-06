@@ -14,11 +14,29 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         onboardingView.setupNavigationBar(for: self)
         setupButton()
+        setupDefaultSettings()
     }
     
     //MARK: - Methods
     private func setupButton() {
         onboardingView.letsPlayButton.addTarget(self, action: #selector(letsPlayButtonTapped), for: .touchUpInside)
+    }
+    
+    
+    func clearUserDefaults() {
+        let defaults = UserDefaults.standard
+        if let appDomain = Bundle.main.bundleIdentifier {
+            defaults.removePersistentDomain(forName: appDomain)
+            defaults.synchronize()
+        }
+        print("UserDefaults очищен.")
+    }
+    
+    private func setupDefaultSettings() {
+        let storageManager = StorageManager()
+        storageManager.set(false, forKey: .gameTimeSwitch)
+        storageManager.set("Cross", forKey: .crossImageName)
+        storageManager.set("Nought", forKey: .noughtImageName)
     }
     
     @objc func barButtonTapped(sender: UIBarButtonItem) {
@@ -27,7 +45,7 @@ class OnboardingViewController: UIViewController {
         let destinationVC: UIViewController
 
         if title == "Setting" {
-            destinationVC = SettingsViewController()
+            destinationVC = GameSettingsViewController()
         } else if title == "Question" {
             destinationVC = RulesViewController()
         } else { return }
