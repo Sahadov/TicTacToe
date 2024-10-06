@@ -22,13 +22,21 @@ class OnboardingViewController: UIViewController {
         onboardingView.letsPlayButton.addTarget(self, action: #selector(letsPlayButtonTapped), for: .touchUpInside)
     }
     
-    private func setupDefaultSettings() {
-        if UserDefaults.standard.dictionaryRepresentation().isEmpty {
-            let storageManager = StorageManager()
-            storageManager.set(false, forKey: .gameTimeSwitch)
-            storageManager.set("Cross", forKey: .crossImageName)
-            storageManager.set("Nought", forKey: .noughtImageName)
+    
+    func clearUserDefaults() {
+        let defaults = UserDefaults.standard
+        if let appDomain = Bundle.main.bundleIdentifier {
+            defaults.removePersistentDomain(forName: appDomain)
+            defaults.synchronize()
         }
+        print("UserDefaults очищен.")
+    }
+    
+    private func setupDefaultSettings() {
+        let storageManager = StorageManager()
+        storageManager.set(false, forKey: .gameTimeSwitch)
+        storageManager.set("Cross", forKey: .crossImageName)
+        storageManager.set("Nought", forKey: .noughtImageName)
     }
     
     @objc func barButtonTapped(sender: UIBarButtonItem) {

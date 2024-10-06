@@ -43,8 +43,8 @@ class GameViewController: BaseViewController {
     
     // таймер
     private var timer: Timer?
-    private var totalTime = 120
-    private var secondsLeft: Int = 120 {
+    private var totalTime = 0
+    private var secondsLeft: Int = 0 {
         didSet {
             gameView.timeLabel.text = formatTime(secondsLeft)
         }
@@ -60,6 +60,7 @@ class GameViewController: BaseViewController {
         guard let durationTime = storageManager.getInt(forKey: .duration) else { return }
         gameView.timeLabel.isHidden = false
         //secondsLeft = totalTime
+        totalTime = durationTime
         secondsLeft = durationTime
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
@@ -131,6 +132,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let player: Player = .cross
         
         // Обновляем изображение для следующего игрока
+
         gameView.updatePlayerImage(to: UIImage(named: storageManager.getString(forKey: .noughtImageName)!))
         
         gameView.selectPlayerLabel.text = "Computer turn"
@@ -141,7 +143,9 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if gameLogic.checkWin(for: player, in: gameField) {
             showResults(GameResult.win)
             let timePassed = totalTime - secondsLeft
-            storageManager.set(timePassed, forKey: .leaderboard)
+            if timePassed > 0 {
+                storageManager.set(timePassed, forKey: .leaderboard)
+            }
             stopTimer()
             return
         }
