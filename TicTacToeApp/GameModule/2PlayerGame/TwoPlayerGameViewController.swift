@@ -68,11 +68,15 @@ class TwoPlayerGameViewController: BaseViewController {
         case .cross:
             showResults(.player1)
             let timePassed = totalTime - secondsLeft
-            storageManager.set(timePassed, forKey: .leaderboard)
+            if timePassed >= 3 {
+                storageManager.set(timePassed, forKey: .leaderboard)
+            }
         case .nought:
             showResults(.player2)
             let timePassed = totalTime - secondsLeft
-            storageManager.set(timePassed, forKey: .leaderboard)
+            if timePassed >= 3 {
+                storageManager.set(timePassed, forKey: .leaderboard)
+            }
         }
     }
     

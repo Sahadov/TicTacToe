@@ -161,7 +161,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 timePassed = totalTime
             }
             
-            if timePassed > 0 {
+            if timePassed >= 3 {
                 storageManager.set(timePassed, forKey: .leaderboard)
             }
             stopTimer()
