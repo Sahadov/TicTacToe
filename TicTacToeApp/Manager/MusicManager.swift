@@ -39,7 +39,9 @@ class MusicManager {
     
     func resumeBackgroundMusic() {
         guard let audioPlayer = audioPlayer else { return }
-        if !audioPlayer.isPlaying {
+        guard let musicOn = storage.getBool(forKey: .musicOn) else { return }
+        
+        if !audioPlayer.isPlaying && musicOn {
             audioPlayer.play()
         }
     }
