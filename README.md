@@ -21,7 +21,7 @@ This project is an iOS application that implements the classic Tic-Tac-Toe game.
 Team Leader: https://github.com/Sahadov
 </br>
 
-Other members: 
+Team members: 
 1. https://github.com/muradkv
 2. https://github.com/Julia4723
 3. https://github.com/Bokhulenkov
