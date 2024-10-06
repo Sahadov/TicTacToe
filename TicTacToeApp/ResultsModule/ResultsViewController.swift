@@ -2,6 +2,8 @@ import UIKit
 
 class ResultsViewController: UIViewController, ResultViewDelegate {
     
+    let storage = StorageManager()
+    
     var gameResult: GameResult? {
         didSet {
             guard let gameResult = gameResult else { fatalError() }
@@ -36,11 +38,20 @@ class ResultsViewController: UIViewController, ResultViewDelegate {
         if let result = gameResult {
             resultView.configure(result: result)
         }
+        
+        navigationItem.hidesBackButton = true
     }
     
     func didTapAgainButton() {
-        let gameVC = TwoPlayerGameViewController()
-        navigationController?.pushViewController(gameVC, animated: true)
+        guard let gameMode = storage.getString(forKey: .gameMode) else { return }
+        var destinationVC: UIViewController
+
+        if gameMode == "Single Player" {
+            destinationVC = GameViewController()
+        } else {
+            destinationVC = TwoPlayerGameViewController()
+        }
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func didTapBackButton() {
