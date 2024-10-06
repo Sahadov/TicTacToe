@@ -62,6 +62,8 @@ final class TwoPlayerGameView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutView)
         collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.layer.cornerRadius = 30
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -160,14 +162,14 @@ extension TwoPlayerGameView {
             
             
             containerView.topAnchor.constraint(equalTo: selectedPlayerView.bottomAnchor, constant: 30),
-            containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 400),
+            containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 44),
+            containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -44),
+            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: 300),
             
-            fieldCollection.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            fieldCollection.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            fieldCollection.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
-            fieldCollection.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20)
+            fieldCollection.topAnchor.constraint(equalTo: containerView.topAnchor),
+            fieldCollection.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            fieldCollection.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            fieldCollection.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
         ])
     }
 }
